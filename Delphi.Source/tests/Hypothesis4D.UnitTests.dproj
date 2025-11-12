@@ -98,6 +98,8 @@
         <DCCReference Include="..\src\Hypothesis.Generators.Integers.pas"/>
         <DCCReference Include="..\src\Hypothesis.Generators.Strings.pas"/>
         <DCCReference Include="..\src\Hypothesis.Generators.Interfaces.pas"/>
+        <DCCReference Include="..\examples\Hypothesis.Examples.Tests.pas"/>
+        <DCCReference Include="..\examples\Hypothesis.Examples.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

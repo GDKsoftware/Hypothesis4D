@@ -21,7 +21,9 @@ uses
   Hypothesis.Runner in '..\src\Hypothesis.Runner.pas',
   Hypothesis.Generators.Integers in '..\src\Hypothesis.Generators.Integers.pas',
   Hypothesis.Generators.Strings in '..\src\Hypothesis.Generators.Strings.pas',
-  Hypothesis.Generators.Interfaces in '..\src\Hypothesis.Generators.Interfaces.pas';
+  Hypothesis.Generators.Interfaces in '..\src\Hypothesis.Generators.Interfaces.pas',
+  Hypothesis.Examples.Tests in '..\examples\Hypothesis.Examples.Tests.pas',
+  Hypothesis.Examples in '..\examples\Hypothesis.Examples.pas';
 
 { keep comment here to protect the following conditional from being removed by the IDE when adding a unit }
 {$IFNDEF TESTINSIGHT}
