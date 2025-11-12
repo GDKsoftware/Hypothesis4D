@@ -1,0 +1,69 @@
+# Delphi compiled units
+*.dcu
+*.~*
+*.local
+*.identcache
+*.projdata
+*.tvsconfig
+*.dsk
+*.skincfg
+
+# Delphi binary files
+*.exe
+*.dll
+*.bpl
+*.bpi
+*.dcp
+*.so
+*.apk
+*.drc
+*.map
+*.dres
+*.rsm
+*.tds
+*.dproj.local
+*.groupproj.local
+
+# Delphi backup and history
+__history/
+__recovery/
+*.~*
+
+# Castalia statistics
+*.stat
+
+# Delphi local files
+*.local
+*.identcache
+*.projdata
+
+# DUnit / DUnitX
+dunit-results/
+*.dunit
+*.dunitx
+
+# Project specific binary output
+Win32/
+Win64/
+OSX32/
+OSX64/
+Android/
+iOSDevice/
+iOSSimulator/
+
+# IDE specific
+*.dproj.local
+*.groupproj.local
+*.otares
+
+# Python virtual environments (for reference Python.Source)
+Python.Source/venv/
+Python.Source/__pycache__/
+Python.Source/*.pyc
+Python.Source/.pytest_cache/
+Python.Source/.hypothesis/
+
+# System files
+.DS_Store
+Thumbs.db
+Desktop.ini
