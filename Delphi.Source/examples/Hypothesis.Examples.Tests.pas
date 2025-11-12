@@ -6,7 +6,7 @@ uses
   DUnitX.TestFramework,
   System.SysUtils,
   Hypothesis.Attributes,
-  Hypothesis.DUnitX,
+  Hypothesis.Runner,
   Hypothesis.Examples;
 
 type

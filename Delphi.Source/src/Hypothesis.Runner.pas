@@ -1,11 +1,10 @@
-unit Hypothesis.DUnitX;
+unit Hypothesis.Runner;
 
 interface
 
 uses
   System.SysUtils,
   System.Rtti,
-  DUnitX.TestFramework,
   Hypothesis.Core;
 
 type
@@ -17,7 +16,8 @@ type
 implementation
 
 uses
-  Hypothesis.Attributes;
+  Hypothesis.Attributes,
+  Hypothesis.Exceptions;
 
 class procedure THypothesis.Run(const TestInstance: TObject; const MethodName: string);
 var
@@ -40,13 +40,9 @@ begin
         Runner.RunPropertyTest(Method, TestInstance);
       except
         on E: TPropertyTestFailure do
-        begin
-          Assert.Fail(E.Message);
-        end;
+          raise;
         on E: Exception do
-        begin
-          Assert.Fail(Format('Property test execution error: %s', [E.Message]));
-        end;
+          raise Exception.CreateFmt('Property test execution error: %s', [E.Message]);
       end;
     finally
       Runner.Free;

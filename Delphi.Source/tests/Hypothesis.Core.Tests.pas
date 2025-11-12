@@ -7,7 +7,7 @@ uses
   System.SysUtils,
   System.Math,
   Hypothesis.Attributes,
-  Hypothesis.DUnitX;
+  Hypothesis.Runner;
 
 type
   [TestFixture]

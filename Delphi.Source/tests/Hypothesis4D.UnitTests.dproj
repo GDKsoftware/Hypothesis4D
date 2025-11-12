@@ -90,10 +90,14 @@
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <DCCReference Include="Hypothesis.Core.Tests.pas"/>
+        <DCCReference Include="..\src\Hypothesis.Generators.Factory.pas"/>
         <DCCReference Include="..\src\Hypothesis.Core.pas"/>
-        <DCCReference Include="..\src\Hypothesis.DUnitX.pas"/>
-        <DCCReference Include="..\src\Hypothesis.Generators.pas"/>
         <DCCReference Include="..\src\Hypothesis.Attributes.pas"/>
+        <DCCReference Include="..\src\Hypothesis.Exceptions.pas"/>
+        <DCCReference Include="..\src\Hypothesis.Runner.pas"/>
+        <DCCReference Include="..\src\Hypothesis.Generators.Integers.pas"/>
+        <DCCReference Include="..\src\Hypothesis.Generators.Strings.pas"/>
+        <DCCReference Include="..\src\Hypothesis.Generators.Interfaces.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

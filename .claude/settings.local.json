@@ -5,7 +5,11 @@
       "Bash(mkdir:*)",
       "Bash(git init:*)",
       "Bash(git config:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nInitial implementation of Hypothesis4D property-based testing library\n\nThis commit contains the complete MVP implementation of a property-based \ntesting library for Delphi, inspired by Python''s Hypothesis library.\n\nFeatures:\n- Property-based testing with automatic value generation and shrinking\n- Integer strategies: IntRange, IntPositive, IntNegative, IntNonZero\n- String strategies: StringGen, StringAlpha, StringNumeric\n- DUnitX integration via wrapper methods\n- RTTI-based parameter inspection\n- Comprehensive test suite with 14 passing tests\n\nCore units:\n- Hypothesis.Attributes.pas: Strategy attribute declarations\n- Hypothesis.Generators.pas: Value generators with shrinking support\n- Hypothesis.Core.pas: Test runner with failure shrinking\n- Hypothesis.DUnitX.pas: DUnitX framework integration\n\nTest suites:\n- Hypothesis.Core.Tests.pas: Comprehensive framework tests\n- Hypothesis.Examples.Tests.pas: Example usage demonstrations\n\nTarget: Delphi 11+ with Spring4D collections\nFramework: DUnitX\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git remote add:*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []

@@ -14,10 +14,14 @@ uses
   {$ENDIF }
   DUnitX.TestFramework,
   Hypothesis.Core.Tests in 'Hypothesis.Core.Tests.pas',
+  Hypothesis.Generators.Factory in '..\src\Hypothesis.Generators.Factory.pas',
   Hypothesis.Core in '..\src\Hypothesis.Core.pas',
-  Hypothesis.DUnitX in '..\src\Hypothesis.DUnitX.pas',
-  Hypothesis.Generators in '..\src\Hypothesis.Generators.pas',
-  Hypothesis.Attributes in '..\src\Hypothesis.Attributes.pas';
+  Hypothesis.Attributes in '..\src\Hypothesis.Attributes.pas',
+  Hypothesis.Exceptions in '..\src\Hypothesis.Exceptions.pas',
+  Hypothesis.Runner in '..\src\Hypothesis.Runner.pas',
+  Hypothesis.Generators.Integers in '..\src\Hypothesis.Generators.Integers.pas',
+  Hypothesis.Generators.Strings in '..\src\Hypothesis.Generators.Strings.pas',
+  Hypothesis.Generators.Interfaces in '..\src\Hypothesis.Generators.Interfaces.pas';
 
 { keep comment here to protect the following conditional from being removed by the IDE when adding a unit }
 {$IFNDEF TESTINSIGHT}
