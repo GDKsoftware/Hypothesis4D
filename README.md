@@ -1,10 +1,14 @@
 # Hypothesis for Delphi
 
-A minimal property-based testing library for Delphi, inspired by Python's Hypothesis library.
+A minimal property-based testing library for Delphi, inspired by [Python's Hypothesis library](https://hypothesis.readthedocs.io/en/latest/).
 
 ## Overview
 
 Hypothesis for Delphi enables property-based testing using custom attributes and automatic value generation with shrinking support. Instead of writing individual test cases with specific values, you define properties that should hold true for all valid inputs, and Hypothesis generates test data automatically.
+
+### Property-Based Testing vs Traditional Testing
+
+Traditional unit tests verify behavior with specific, hand-picked examples: "when I reverse 'hello', I get 'olleh'". Property-based testing takes a different approach by defining general rules: "reversing any string twice returns the original". Hypothesis then automatically generates hundreds of test cases to verify this property holds for empty strings, single characters, long strings, special characters, and edge cases you might not have thought of. When a property fails, Hypothesis automatically "shrinks" the failing input to find the simplest example that breaks your code, making debugging much easier. This approach catches corner cases that manual testing often misses, while requiring less test code to write and maintain. Property-based testing complements traditional example-based tests perfectly: use examples for specific known scenarios and edge cases, and use properties to verify general behavior across a wide range of inputs.
 
 ## Features
 
