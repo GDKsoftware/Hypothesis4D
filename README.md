@@ -59,11 +59,9 @@ uses
   System.SysUtils;
 
 function ReverseString(const S: string): string;
-var
-  I: Integer;
 begin
   Result := '';
-  for I := S.Length downto 1 do
+  for var I := S.Length downto 1 do
     Result := Result + S[I];
 end;
 
@@ -73,12 +71,9 @@ begin
 end;
 
 procedure TMyPropertyTests.TestStringReverse(const Text: string);
-var
-  Reversed: string;
-  DoubleReversed: string;
 begin
-  Reversed := ReverseString(Text);
-  DoubleReversed := ReverseString(Reversed);
+  var Reversed := ReverseString(Text);
+  var DoubleReversed := ReverseString(Reversed);
 
   Assert.AreEqual(Text, DoubleReversed,
     'Reversing a string twice should give the original string');
