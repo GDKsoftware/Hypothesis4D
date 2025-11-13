@@ -37,9 +37,11 @@ Het volledige initiële plan en de requirements zijn gedocumenteerd in:
 
 ## Project Status
 
-- **Fase**: Planning & Design voltooid
-- **Volgende stap**: Implementatie starten volgens het plan in InitialPlan.md
-- **Todo's**: Zie [.docs/todo.md](.docs/todo.md) voor gedetailleerde volgende stappen
+- **Fase**: ✅ MVP Voltooid
+- **Implementatie**: Alle core features zijn geïmplementeerd en getest
+- **Status**: Zie [.docs/todo.md](.docs/todo.md) voor volledige project status en toekomstige verbeteringen
+
+**Belangrijk**: Bij het voltooien van taken moet [.docs/todo.md](.docs/todo.md) bijgewerkt worden om de actuele project status weer te geven.
 
 ## Quick Reference
 
@@ -63,11 +65,18 @@ type
   TMyPropertyTests = class
   public
     [Test]
-    [ForAll(10)]
-    procedure TestStringReverse(
-      [StringAlpha('input', 0, 50)] const AInput: string
-    );
+    procedure RunTestStringReverse;
+
+    [ForAll(100)]
+    procedure TestStringReverse([StringAlpha('Text', 0, 50)] const Text: string);
   end;
+
+implementation
+
+procedure TMyPropertyTests.RunTestStringReverse;
+begin
+  THypothesis.Run(Self, 'TestStringReverse');
+end;
 ```
 
 ## Bronmateriaal
