@@ -43,6 +43,36 @@ Het volledige initiële plan en de requirements zijn gedocumenteerd in:
 
 **Belangrijk**: Bij het voltooien van taken moet [.docs/todo.md](.docs/todo.md) bijgewerkt worden om de actuele project status weer te geven.
 
+## Git Commit Guidelines
+
+Bij het maken van commits:
+
+- **Geen referenties naar AI tools**: Voeg GEEN verwijzingen toe naar Claude Code, Anthropic, of andere AI tools in commit messages
+- **Compacte samenvatting**: Een korte, duidelijke samenvatting van de wijziging is voldoende
+- **Geen uitgebreide opsommingen**: Het hoeft geen gedetailleerde lijst van alle wijzigingen te zijn
+- **Focus op het "waarom"**: Vertel waarom de wijziging is gemaakt, niet alle details van wat er veranderd is
+
+**Voorbeeld goede commit message**:
+```
+Fix: Correct parameter attribute formatting in test methods
+
+Updated test methods to follow the parameter attributes formatting
+guidelines for better consistency.
+```
+
+**Voorbeeld slechte commit message**:
+```
+Fix parameter formatting
+
+Changes:
+- Updated line 23 in file X
+- Changed spacing in file Y
+- Modified alignment in file Z
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
+
 ## Quick Reference
 
 ### Target
