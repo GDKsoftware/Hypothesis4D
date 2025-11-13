@@ -16,13 +16,13 @@ Hypothesis for Delphi enables property-based testing using custom attributes and
 
 ## Requirements
 
-- Delphi 12.3 Athens (or newer)
+- Delphi 11 (or newer)
 - DUnitX test framework
 - Spring4D collections library
 
 ## Installation
 
-1. Add the `Delphi.Source/src` folder to your project's search path
+1. Add the `Delphi.Source\src` folder to your project's search path
 2. Ensure DUnitX and Spring4D are available in your project
 3. Add the required units to your test project:
    - `Hypothesis.Attributes`
@@ -223,18 +223,18 @@ Seed: 12345678
 The project includes two types of examples:
 
 ### Example Code
-[examples/Hypothesis.Examples.pas](examples/Hypothesis.Examples.pas) - Simple utility classes demonstrating testable code:
+[Delphi.Source/examples/Hypothesis.Examples.pas](Delphi.Source/examples/Hypothesis.Examples.pas) - Simple utility classes demonstrating testable code:
 - `TStringUtils`: String manipulation functions
 - `TMathUtils`: Mathematical operations
 
 ### Example Tests
-[examples/Hypothesis.Examples.Tests.pas](examples/Hypothesis.Examples.Tests.pas) - Property-based tests for the example code:
+[Delphi.Source/examples/Hypothesis.Examples.Tests.pas](Delphi.Source/examples/Hypothesis.Examples.Tests.pas) - Property-based tests for the example code:
 - String reversal properties (involutive, length preservation)
 - Arithmetic properties (commutativity, associativity)
 - Consistency checks
 
 ### Framework Tests
-[tests/Hypothesis.Core.Tests.pas](tests/Hypothesis.Core.Tests.pas) - Comprehensive test suite including:
+[Delphi.Source/tests/Hypothesis.Core.Tests.pas](Delphi.Source/tests/Hypothesis.Core.Tests.pas) - Comprehensive test suite including:
 - Integer properties (reverse, addition, absolute value)
 - String properties (reverse, concatenation, uppercase)
 - Strategy validation (positive, negative, non-zero, alpha, numeric)
