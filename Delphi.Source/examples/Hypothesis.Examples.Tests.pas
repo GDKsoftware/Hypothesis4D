@@ -20,14 +20,10 @@ type
     procedure RunTestReverseLengthPreserved;
 
     [ForAll(100)]
-    procedure TestReverseIsInvolutive(
-      [StringAlpha('Text', 0, 50)] const Text: string
-    );
+    procedure TestReverseIsInvolutive([StringAlpha('Text', 0, 50)] const Text: string);
 
     [ForAll(100)]
-    procedure TestReverseLengthPreserved(
-      [StringGen('Text', 0, 100)] const Text: string
-    );
+    procedure TestReverseLengthPreserved([StringGen('Text', 0, 100)] const Text: string);
   end;
 
   [TestFixture]
@@ -43,22 +39,16 @@ type
     procedure RunTestIsEvenConsistency;
 
     [ForAll(100)]
-    procedure TestAdditionIsCommutative(
-      [IntRange('A', -1000, 1000)] const A: Integer;
-      [IntRange('B', -1000, 1000)] const B: Integer
-    );
+    procedure TestAdditionIsCommutative([IntRange('A', -1000, 1000)] const A: Integer;
+                                        [IntRange('B', -1000, 1000)] const B: Integer);
 
     [ForAll(100)]
-    procedure TestAdditionIsAssociative(
-      [IntRange('A', -100, 100)] const A: Integer;
-      [IntRange('B', -100, 100)] const B: Integer;
-      [IntRange('C', -100, 100)] const C: Integer
-    );
+    procedure TestAdditionIsAssociative([IntRange('A', -100, 100)] const A: Integer;
+                                        [IntRange('B', -100, 100)] const B: Integer;
+                                        [IntRange('C', -100, 100)] const C: Integer);
 
     [ForAll(100)]
-    procedure TestIsEvenConsistency(
-      [IntRange('Value', -10000, 10000)] const Value: Integer
-    );
+    procedure TestIsEvenConsistency([IntRange('Value', -10000, 10000)] const Value: Integer);
   end;
 
 implementation
