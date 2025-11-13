@@ -1373,11 +1373,46 @@ procedure TestCustomerValidation;
 
 [TestCase('Valid', 'John,Doe,true')]
 [TestCase('Invalid', ',,false')]
-procedure TestNameValidation(const FirstName, LastName: string; 
+procedure TestNameValidation(const FirstName, LastName: string;
                              const Expected: Boolean);
 
 // ❌ Bad - method on same line as attribute
 [Test] procedure TestCustomerValidation;
+```
+
+### Parameter Attributes Formatting
+
+When parameters have attributes, keep the attribute and parameter together on the same line. Apply the same alignment rules as for regular parameters: if the signature fits on one line (≤200 characters), use one line. Otherwise, place the first parameter (with its attribute) on the same line as the method name, and align subsequent parameters (with their attributes) underneath.
+
+**Key principle**: The attribute is part of the parameter declaration and must stay with its parameter.
+
+```delphi
+// ✅ Good - signature fits on one line
+[ForAll(100)]
+procedure TestStringReverse([StringAlpha('Text', 0, 50)] const Text: string);
+
+// ✅ Good - signature too long, parameters with attributes aligned
+[ForAll(100)]
+procedure TestAdditionIsCommutative([IntRange('A', -1000, 1000)] const A: Integer;
+                                    [IntRange('B', -1000, 1000)] const B: Integer);
+
+// ✅ Good - complex example with multiple parameters
+[ForAll(100)]
+procedure TestCalculation([IntRange('Value', -1000, 1000)] const Value: Integer;
+                          [StringAlpha('Name', 1, 50)] const Name: string;
+                          [IntPositive('Count', 100)] const Count: Integer);
+
+// ❌ Bad - attributes separated from parameters
+[ForAll(100)]
+procedure TestAdditionIsCommutative(
+  [IntRange('A', -1000, 1000)] const A: Integer;
+  [IntRange('B', -1000, 1000)] const B: Integer
+);
+
+// ❌ Bad - inconsistent alignment
+[ForAll(100)]
+procedure TestAdditionIsCommutative([IntRange('A', -1000, 1000)] const A: Integer;
+  [IntRange('B', -1000, 1000)] const B: Integer);
 ```
 
 ### Used Units Formatting
