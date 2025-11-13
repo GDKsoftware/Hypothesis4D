@@ -6,6 +6,7 @@ uses
   System.SysUtils,
   System.Rtti,
   System.TypInfo,
+  System.Math,
   Spring.Collections;
 
 type
@@ -186,6 +187,36 @@ begin
         Parts[I] := Values[I].AsInt64.ToString;
       tkString, tkUString, tkLString, tkWString:
         Parts[I] := QuotedStr(Values[I].AsString);
+      tkEnumeration:
+        if Values[I].TypeInfo = TypeInfo(Boolean) then
+          Parts[I] := BoolToStr(Values[I].AsBoolean, True)
+        else
+          Parts[I] := Values[I].ToString;
+      tkFloat:
+        begin
+          const FloatVal = Values[I].AsExtended;
+          if IsNan(FloatVal) then
+            Parts[I] := 'NaN'
+          else if IsInfinite(FloatVal) then
+          begin
+            if FloatVal > 0 then
+              Parts[I] := 'Infinity'
+            else
+              Parts[I] := '-Infinity';
+          end
+          else if (FloatVal >= -657434.0) and (FloatVal <= 2958465.999988) then
+          begin
+            // Likely a TDateTime value (within valid date range)
+            if Frac(FloatVal) = 0 then
+              Parts[I] := FormatDateTime('yyyy-mm-dd', FloatVal)
+            else if Int(FloatVal) = 0 then
+              Parts[I] := FormatDateTime('hh:nn:ss.zzz', FloatVal)
+            else
+              Parts[I] := FormatDateTime('yyyy-mm-dd hh:nn:ss', FloatVal);
+          end
+          else
+            Parts[I] := Format('%.6g', [FloatVal]); // Scientific notation when needed
+        end;
     else
       Parts[I] := Values[I].ToString;
     end;

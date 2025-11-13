@@ -5,9 +5,13 @@ interface
 uses
   System.SysUtils,
   System.Rtti,
+  System.DateUtils,
   Hypothesis.Generators.Interfaces,
   Hypothesis.Generators.Integers,
-  Hypothesis.Generators.Strings;
+  Hypothesis.Generators.Strings,
+  Hypothesis.Generators.Booleans,
+  Hypothesis.Generators.Floats,
+  Hypothesis.Generators.DateTimes;
 
 type
   TGeneratorFactory = class
@@ -63,6 +67,57 @@ begin
     const StrNumeric = StringNumericAttribute(Attribute);
     Exit(TStringGenerator.Create(StrNumeric.MinLen, StrNumeric.MaxLen, TStringCharSet.Numeric));
   end;
+
+  if Attribute is BooleanAttribute then
+    Exit(TBooleanGenerator.Create);
+
+  if Attribute is FloatRangeAttribute then
+  begin
+    const FloatRange = FloatRangeAttribute(Attribute);
+    Exit(TFloatGenerator.Create(FloatRange.Min, FloatRange.Max,
+                                  FloatRange.AllowNaN, FloatRange.AllowInfinity));
+  end;
+
+  if Attribute is FloatPositiveAttribute then
+  begin
+    const FloatPos = FloatPositiveAttribute(Attribute);
+    Exit(TFloatGenerator.Create(1e-10, FloatPos.Max, False, False));
+  end;
+
+  if Attribute is FloatNegativeAttribute then
+  begin
+    const FloatNeg = FloatNegativeAttribute(Attribute);
+    Exit(TFloatGenerator.Create(FloatNeg.Min, -1e-10, False, False));
+  end;
+
+  if Attribute is FloatUnitAttribute then
+    Exit(TFloatGenerator.Create(0.0, 1.0, False, False));
+
+  if Attribute is DateRangeAttribute then
+  begin
+    const DateRange = DateRangeAttribute(Attribute);
+    Exit(TDateTimeGenerator.Create(DateRange.MinYear, DateRange.MaxYear, False));
+  end;
+
+  if Attribute is DateTimeRangeAttribute then
+  begin
+    const DateTimeRange = DateTimeRangeAttribute(Attribute);
+    Exit(TDateTimeGenerator.Create(DateTimeRange.MinYear, DateTimeRange.MaxYear, True));
+  end;
+
+  if Attribute is DateRecentAttribute then
+  begin
+    const DateRecent = DateRecentAttribute(Attribute);
+    const MinDate = Date - DateRecent.Days;
+    const MaxDate = Date;
+    var MinYear, MaxYear, Dummy: Word;
+    DecodeDate(MinDate, MinYear, Dummy, Dummy);
+    DecodeDate(MaxDate, MaxYear, Dummy, Dummy);
+    Exit(TDateTimeGenerator.Create(MinYear, MaxYear, False));
+  end;
+
+  if Attribute is TimeRangeAttribute then
+    Exit(TTimeGenerator.Create);
 
   raise Exception.CreateFmt('Unsupported attribute type: %s', [Attribute.ClassName]);
 end;

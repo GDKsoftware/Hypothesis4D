@@ -1,4 +1,4 @@
-unit Hypothesis.Core.Tests;
+﻿unit Hypothesis.Core.Tests;
 
 interface
 
@@ -49,6 +49,120 @@ type
 
     [ForAll(100)]
     procedure TestNonZeroValuesAreNotZero([IntNonZero('Value', -1000, 1000)] const Value: Integer);
+  end;
+
+  [TestFixture]
+  TBooleanPropertyTests = class
+  public
+    [Test]
+    procedure RunTestDoubleNegation;
+
+    [ForAll(100)]
+    procedure TestDoubleNegation([Boolean('Value')] const Value: Boolean);
+
+    [Test]
+    procedure RunTestAndIsCommutative;
+
+    [ForAll(100)]
+    procedure TestAndIsCommutative([Boolean('A')] const A: Boolean;
+                                   [Boolean('B')] const B: Boolean);
+
+    [Test]
+    procedure RunTestOrIsCommutative;
+
+    [ForAll(100)]
+    procedure TestOrIsCommutative([Boolean('A')] const A: Boolean;
+                                  [Boolean('B')] const B: Boolean);
+
+    [Test]
+    procedure RunTestDeMorganAnd;
+
+    [ForAll(100)]
+    procedure TestDeMorganAnd([Boolean('A')] const A: Boolean;
+                              [Boolean('B')] const B: Boolean);
+
+    [Test]
+    procedure RunTestDeMorganOr;
+
+    [ForAll(100)]
+    procedure TestDeMorganOr([Boolean('A')] const A: Boolean;
+                             [Boolean('B')] const B: Boolean);
+  end;
+
+  [TestFixture]
+  TFloatPropertyTests = class
+  public
+    [Test]
+    procedure RunTestAdditionIsCommutative;
+
+    [ForAll(100)]
+    procedure TestAdditionIsCommutative([FloatRange('A', -1000.0, 1000.0)] const A: Double;
+                                        [FloatRange('B', -1000.0, 1000.0)] const B: Double);
+
+    [Test]
+    procedure RunTestAbsoluteValueIsPositive;
+
+    [ForAll(100)]
+    procedure TestAbsoluteValueIsPositive([FloatRange('Value', -1000.0, 1000.0)] const Value: Double);
+
+    [Test]
+    procedure RunTestSqrtSquare;
+
+    [ForAll(100)]
+    procedure TestSqrtSquare([FloatPositive('Value', 1000.0)] const Value: Double);
+
+    [Test]
+    procedure RunTestUnitIntervalBounds;
+
+    [ForAll(100)]
+    procedure TestUnitIntervalBounds([FloatUnit('Value')] const Value: Double);
+
+    [Test]
+    procedure RunTestPositiveValuesArePositive;
+
+    [ForAll(100)]
+    procedure TestPositiveValuesArePositive([FloatPositive('Value', 1000.0)] const Value: Double);
+
+    [Test]
+    procedure RunTestNegativeValuesAreNegative;
+
+    [ForAll(100)]
+    procedure TestNegativeValuesAreNegative([FloatNegative('Value', -1000.0)] const Value: Double);
+  end;
+
+  [TestFixture]
+  TDateTimePropertyTests = class
+  public
+    [Test]
+    procedure RunTestDateAddSubtract;
+
+    [ForAll(100)]
+    procedure TestDateAddSubtract([DateRange('Date', 1900, 2100)] const Date: TDate);
+
+    [Test]
+    procedure RunTestDateOrdering;
+
+    [ForAll(100)]
+    procedure TestDateOrdering([DateRange('Date1', 1900, 2100)] const Date1: TDate;
+                               [DateRange('Date2', 1900, 2100)] const Date2: TDate);
+
+    [Test]
+    procedure RunTestTimeWithinDay;
+
+    [ForAll(100)]
+    procedure TestTimeWithinDay([TimeRange('Time')] const Time: TTime);
+
+    [Test]
+    procedure RunTestDateTimeComponents;
+
+    [ForAll(100)]
+    procedure TestDateTimeComponents([DateTimeRange('DT', 1900, 2100)] const DT: TDateTime);
+
+    [Test]
+    procedure RunTestRecentDatesAreRecent;
+
+    [ForAll(100)]
+    procedure TestRecentDatesAreRecent([DateRecent('Date', 30)] const Date: TDate);
   end;
 
   [TestFixture]
@@ -112,6 +226,9 @@ type
 
 implementation
 
+uses
+  System.DateUtils;
+
 function ReverseInteger(const Value: Integer): Integer;
 var
   AbsValue: Integer;
@@ -148,6 +265,220 @@ end;
 function IsNumeric(const Ch: Char): Boolean;
 begin
   Result := (Ch >= '0') and (Ch <= '9');
+end;
+
+procedure TBooleanPropertyTests.RunTestDoubleNegation;
+begin
+  THypothesis.Run(Self, 'TestDoubleNegation');
+end;
+
+procedure TBooleanPropertyTests.RunTestAndIsCommutative;
+begin
+  THypothesis.Run(Self, 'TestAndIsCommutative');
+end;
+
+procedure TBooleanPropertyTests.RunTestOrIsCommutative;
+begin
+  THypothesis.Run(Self, 'TestOrIsCommutative');
+end;
+
+procedure TBooleanPropertyTests.RunTestDeMorganAnd;
+begin
+  THypothesis.Run(Self, 'TestDeMorganAnd');
+end;
+
+procedure TBooleanPropertyTests.RunTestDeMorganOr;
+begin
+  THypothesis.Run(Self, 'TestDeMorganOr');
+end;
+
+procedure TBooleanPropertyTests.TestDoubleNegation(const Value: Boolean);
+begin
+  Assert.AreEqual(Value, not (not Value), 'Double negation should equal original value');
+end;
+
+procedure TBooleanPropertyTests.TestAndIsCommutative(const A: Boolean; const B: Boolean);
+begin
+  Assert.AreEqual(A and B, B and A, 'Boolean AND should be commutative');
+end;
+
+procedure TBooleanPropertyTests.TestOrIsCommutative(const A: Boolean; const B: Boolean);
+begin
+  Assert.AreEqual(A or B, B or A, 'Boolean OR should be commutative');
+end;
+
+procedure TBooleanPropertyTests.TestDeMorganAnd(const A: Boolean; const B: Boolean);
+begin
+  Assert.AreEqual(not (A and B), (not A) or (not B), 'De Morgan''s law for AND should hold');
+end;
+
+procedure TBooleanPropertyTests.TestDeMorganOr(const A: Boolean; const B: Boolean);
+begin
+  Assert.AreEqual(not (A or B), (not A) and (not B), 'De Morgan''s law for OR should hold');
+end;
+
+procedure TFloatPropertyTests.RunTestAdditionIsCommutative;
+begin
+  THypothesis.Run(Self, 'TestAdditionIsCommutative');
+end;
+
+procedure TFloatPropertyTests.RunTestAbsoluteValueIsPositive;
+begin
+  THypothesis.Run(Self, 'TestAbsoluteValueIsPositive');
+end;
+
+procedure TFloatPropertyTests.RunTestSqrtSquare;
+begin
+  THypothesis.Run(Self, 'TestSqrtSquare');
+end;
+
+procedure TFloatPropertyTests.RunTestUnitIntervalBounds;
+begin
+  THypothesis.Run(Self, 'TestUnitIntervalBounds');
+end;
+
+procedure TFloatPropertyTests.RunTestPositiveValuesArePositive;
+begin
+  THypothesis.Run(Self, 'TestPositiveValuesArePositive');
+end;
+
+procedure TFloatPropertyTests.RunTestNegativeValuesAreNegative;
+begin
+  THypothesis.Run(Self, 'TestNegativeValuesAreNegative');
+end;
+
+procedure TFloatPropertyTests.TestAdditionIsCommutative(const A: Double; const B: Double);
+const
+  Epsilon = 1e-10;
+begin
+  Assert.IsTrue(Abs((A + B) - (B + A)) < Epsilon,
+                Format('Addition should be commutative: %g + %g ≈ %g + %g', [A, B, B, A]));
+end;
+
+procedure TFloatPropertyTests.TestAbsoluteValueIsPositive(const Value: Double);
+begin
+  Assert.IsTrue(Abs(Value) >= 0,
+                Format('Absolute value of %g should be non-negative, got %g', [Value, Abs(Value)]));
+end;
+
+procedure TFloatPropertyTests.TestSqrtSquare(const Value: Double);
+const
+  Epsilon = 1e-9;
+var
+  Square: Double;
+  SqrtSquare: Double;
+begin
+  Square := Value * Value;
+  SqrtSquare := Sqrt(Square);
+
+  Assert.IsTrue(Abs(SqrtSquare - Value) < Epsilon,
+                Format('Sqrt(%g * %g) should equal %g, got %g', [Value, Value, Value, SqrtSquare]));
+end;
+
+procedure TFloatPropertyTests.TestUnitIntervalBounds(const Value: Double);
+begin
+  Assert.IsTrue((Value >= 0.0) and (Value <= 1.0),
+                Format('Value %g should be in [0.0, 1.0]', [Value]));
+end;
+
+procedure TFloatPropertyTests.TestPositiveValuesArePositive(const Value: Double);
+begin
+  Assert.IsTrue(Value > 0,
+                Format('Value should be positive, got %g', [Value]));
+end;
+
+procedure TFloatPropertyTests.TestNegativeValuesAreNegative(const Value: Double);
+begin
+  Assert.IsTrue(Value < 0,
+                Format('Value should be negative, got %g', [Value]));
+end;
+
+procedure TDateTimePropertyTests.RunTestDateAddSubtract;
+begin
+  THypothesis.Run(Self, 'TestDateAddSubtract');
+end;
+
+procedure TDateTimePropertyTests.RunTestDateOrdering;
+begin
+  THypothesis.Run(Self, 'TestDateOrdering');
+end;
+
+procedure TDateTimePropertyTests.RunTestTimeWithinDay;
+begin
+  THypothesis.Run(Self, 'TestTimeWithinDay');
+end;
+
+procedure TDateTimePropertyTests.RunTestDateTimeComponents;
+begin
+  THypothesis.Run(Self, 'TestDateTimeComponents');
+end;
+
+procedure TDateTimePropertyTests.RunTestRecentDatesAreRecent;
+begin
+  THypothesis.Run(Self, 'TestRecentDatesAreRecent');
+end;
+
+procedure TDateTimePropertyTests.TestDateAddSubtract(const Date: TDate);
+var
+  DatePlusOne: TDate;
+  DateMinusOne: TDate;
+begin
+  DatePlusOne := Date + 1;
+  DateMinusOne := DatePlusOne - 1;
+
+  Assert.AreEqual(Int(Date), Int(DateMinusOne),
+                  Format('(Date + 1) - 1 should equal original date', []));
+end;
+
+procedure TDateTimePropertyTests.TestDateOrdering(const Date1: TDate; const Date2: TDate);
+var
+  DaysDiff: Int64;
+begin
+  DaysDiff := DaysBetween(Date1, Date2);
+  Assert.IsTrue(DaysDiff >= 0,
+                Format('DaysBetween should always be non-negative, got %d', [DaysDiff]));
+end;
+
+procedure TDateTimePropertyTests.TestTimeWithinDay(const Time: TTime);
+begin
+  Assert.IsTrue((Time >= 0) and (Time < 1.0),
+                Format('Time %g should be in range [0.0, 1.0)', [Time]));
+end;
+
+procedure TDateTimePropertyTests.TestDateTimeComponents(const DT: TDateTime);
+var
+  Year, Month, Day: Word;
+  Hour, Min, Sec, MSec: Word;
+  Reconstructed: TDateTime;
+const
+  Epsilon = 0.001; // 1 millisecond tolerance
+begin
+  DecodeDate(DT, Year, Month, Day);
+  DecodeTime(DT, Hour, Min, Sec, MSec);
+
+  Assert.IsTrue((Year >= 1900) and (Year <= 2100),
+                Format('Year %d should be in valid range', [Year]));
+  Assert.IsTrue((Month >= 1) and (Month <= 12),
+                Format('Month %d should be in valid range', [Month]));
+  Assert.IsTrue((Day >= 1) and (Day <= 31),
+                Format('Day %d should be in valid range', [Day]));
+
+  // Verify we can reconstruct the datetime
+  Reconstructed := EncodeDate(Year, Month, Day) + EncodeTime(Hour, Min, Sec, MSec);
+  Assert.IsTrue(Abs(DT - Reconstructed) < Epsilon,
+                Format('Reconstructed datetime should match original within %g', [Epsilon]));
+end;
+
+procedure TDateTimePropertyTests.TestRecentDatesAreRecent(const Date: TDate);
+var
+  Today: TDate;
+  DaysDiff: Integer;
+begin
+  Today := Date;
+  DaysDiff := DaysBetween(Date, Today);
+
+  Assert.IsTrue(DaysDiff <= 30,
+                Format('Recent date should be within 30 days, got %d days', [DaysDiff]));
 end;
 
 procedure TIntegerPropertyTests.RunTestReversePreservesSign;

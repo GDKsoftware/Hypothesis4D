@@ -14,11 +14,14 @@ All planning, implementation, testing, and documentation are complete. The proje
 
 ### ✅ Completed Deliverables
 
-**Core Units** (10 files):
+**Core Units** (13 files):
 - ✅ `Hypothesis.Attributes.pas` - Strategy attribute declarations
 - ✅ `Hypothesis.Generators.Interfaces.pas` - Base interface for generators
 - ✅ `Hypothesis.Generators.Integers.pas` - Integer value generation and shrinking
 - ✅ `Hypothesis.Generators.Strings.pas` - String value generation and shrinking
+- ✅ `Hypothesis.Generators.Booleans.pas` - Boolean value generation and shrinking
+- ✅ `Hypothesis.Generators.Floats.pas` - Float/Double value generation with special values
+- ✅ `Hypothesis.Generators.DateTimes.pas` - Date/DateTime/Time generation and shrinking
 - ✅ `Hypothesis.Generators.Factory.pas` - Generator creation from attributes
 - ✅ `Hypothesis.Core.pas` - Test runner with RTTI and shrinking orchestration
 - ✅ `Hypothesis.Runner.pas` - DUnitX framework integration helper
@@ -28,6 +31,9 @@ All planning, implementation, testing, and documentation are complete. The proje
 - ✅ `Hypothesis.Examples.pas` - Utility classes for testing
 - ✅ `Hypothesis.Examples.Tests.pas` - Property-based test examples
 - ✅ `Hypothesis.Core.Tests.pas` - Comprehensive framework test suite
+- ✅ `Hypothesis.Generators.Booleans.Tests.pas` - Boolean generator unit tests
+- ✅ `Hypothesis.Generators.Floats.Tests.pas` - Float generator unit tests
+- ✅ `Hypothesis.Generators.DateTimes.Tests.pas` - DateTime generator unit tests
 - ✅ Test project with DUnitX integration
 
 **Documentation**:
@@ -40,12 +46,16 @@ All planning, implementation, testing, and documentation are complete. The proje
 **Features Implemented**:
 - ✅ Integer strategies: IntRange, IntPositive, IntNegative, IntNonZero
 - ✅ String strategies: StringGen, StringAlpha, StringNumeric
+- ✅ Boolean strategies: Boolean
+- ✅ Float/Double strategies: FloatRange, FloatPositive, FloatNegative, FloatUnit (with NaN/Infinity support)
+- ✅ Date/DateTime strategies: DateRange, DateTimeRange, DateRecent, TimeRange
 - ✅ Automatic value generation with configurable iterations
-- ✅ Smart shrinking (integers: binary search, strings: length reduction)
+- ✅ Smart shrinking (integers: binary search, strings: length reduction, floats: towards zero/integers, dates: towards 2000-01-01, times: towards midnight)
 - ✅ RTTI-based parameter inspection
 - ✅ DUnitX integration with wrapper method pattern
 - ✅ Clear failure reporting with original and minimal values
 - ✅ Reproducible tests via seed tracking
+- ✅ Smart formatting for all types including special float values and date/time display
 
 **Code Quality**:
 - ✅ No compiler warnings or hints
@@ -187,11 +197,15 @@ The MVP is complete. The following features are out of scope for MVP but could b
 ### Potential v2.0 Features
 
 **Additional Data Types**:
-- [ ] Boolean strategies
-- [ ] Float/Double strategies with precision control
-- [ ] Date/DateTime strategies
+- ✅ Boolean strategies
+- ✅ Float/Double strategies with precision control
+- ✅ Date/DateTime strategies
 - [ ] Collections (TArray<T>, TList<T>, TDictionary<K,V>)
 - [ ] Record and object strategies
+- [ ] Unicode string support
+- [ ] ASCII-only strings
+- [ ] String patterns (email, URL, etc.)
+- [ ] Regex-based string generation
 
 **Advanced Shrinking**:
 - [ ] Smarter shrinking algorithms
@@ -208,12 +222,6 @@ The MVP is complete. The following features are out of scope for MVP but could b
 - [ ] Custom strategy composition
 - [ ] Property test profiling and performance metrics
 - [ ] Integration with other test frameworks (TestInsight, etc.)
-
-**String Enhancements**:
-- [ ] Unicode string support
-- [ ] ASCII-only strings
-- [ ] String patterns (email, URL, etc.)
-- [ ] Regex-based string generation
 
 ---
 
