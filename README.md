@@ -157,6 +157,88 @@ Generates strings containing only numeric digits (0-9).
 procedure TestNumericString([StringNumeric('Code', 5, 10)] const Code: string);
 ```
 
+### Boolean Strategies
+
+#### `Boolean(ParamName)`
+Generates boolean values (True or False).
+
+```delphi
+[ForAll(100)]
+procedure TestBoolean([Boolean('Flag')] const Flag: Boolean);
+```
+
+### Float/Double Strategies
+
+#### `FloatRange(ParamName, Min, Max, AllowNaN, AllowInfinity)`
+Generates floating-point values within the specified range.
+
+```delphi
+[ForAll(100)]
+procedure TestFloatRange([FloatRange('Value', -100.0, 100.0)] const Value: Double);
+
+// With special values
+[ForAll(100)]
+procedure TestFloatSpecial([FloatRange('Value', -10.0, 10.0, True, True)] const Value: Double);
+```
+
+#### `FloatPositive(ParamName, Max)`
+Generates positive floating-point values greater than zero.
+
+```delphi
+[ForAll(100)]
+procedure TestPositiveFloat([FloatPositive('Amount', 1000.0)] const Amount: Double);
+```
+
+#### `FloatNegative(ParamName, Min)`
+Generates negative floating-point values less than zero.
+
+```delphi
+[ForAll(100)]
+procedure TestNegativeFloat([FloatNegative('Debt', -1000.0)] const Debt: Double);
+```
+
+#### `FloatUnit(ParamName)`
+Generates floating-point values in the unit interval [0.0, 1.0].
+
+```delphi
+[ForAll(100)]
+procedure TestProbability([FloatUnit('Probability')] const Probability: Double);
+```
+
+### Date/DateTime Strategies
+
+#### `DateRange(ParamName, MinYear, MaxYear)`
+Generates date values (TDate) within the specified year range.
+
+```delphi
+[ForAll(100)]
+procedure TestDate([DateRange('Date', 1900, 2100)] const Date: TDate);
+```
+
+#### `DateTimeRange(ParamName, MinYear, MaxYear)`
+Generates datetime values (TDateTime) with both date and time components.
+
+```delphi
+[ForAll(100)]
+procedure TestDateTime([DateTimeRange('DT', 1900, 2100)] const DT: TDateTime);
+```
+
+#### `DateRecent(ParamName, Days)`
+Generates recent dates within the specified number of days from today.
+
+```delphi
+[ForAll(100)]
+procedure TestRecentDate([DateRecent('Date', 30)] const Date: TDate);
+```
+
+#### `TimeRange(ParamName)`
+Generates time values (TTime) representing time of day (00:00:00 to 23:59:59).
+
+```delphi
+[ForAll(100)]
+procedure TestTime([TimeRange('Time')] const Time: TTime);
+```
+
 ## Configuring Iterations
 
 Use the `ForAll` attribute to specify the number of test iterations (default: 10).
@@ -186,6 +268,11 @@ When a test fails, Hypothesis automatically searches for a simpler failing examp
 
 - **Integers**: Binary search towards zero within valid range
 - **Strings**: Reduce length and simplify characters
+- **Booleans**: True shrinks to False
+- **Floats**: Special values → zero → nearest integer → halfway towards zero
+- **Dates**: Year shrinks towards 2000, month towards January, day towards 1st
+- **DateTimes**: Date components shrink as above, time shrinks towards midnight
+- **Times**: Hour/minute/second/millisecond each shrink towards zero
 
 Example failure output:
 
