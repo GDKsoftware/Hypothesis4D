@@ -16,36 +16,36 @@ type
     [Test]
     procedure RunTestReversePreservesSign;
 
-    [Test]
-    procedure RunTestAdditionIsCommutative;
-
-    [Test]
-    procedure RunTestAbsoluteValueIsNonNegative;
-
-    [Test]
-    procedure RunTestPositiveValuesArePositive;
-
-    [Test]
-    procedure RunTestNegativeValuesAreNegative;
-
-    [Test]
-    procedure RunTestNonZeroValuesAreNotZero;
-
     [ForAll(100)]
     procedure TestReversePreservesSign([IntRange('Value', -1000, 1000)] const Value: Integer);
+
+    [Test]
+    procedure RunTestAdditionIsCommutative;
 
     [ForAll(100)]
     procedure TestAdditionIsCommutative([IntRange('A', -1000, 1000)] const A: Integer;
                                         [IntRange('B', -1000, 1000)] const B: Integer);
 
+    [Test]
+    procedure RunTestAbsoluteValueIsNonNegative;
+
     [ForAll(100)]
     procedure TestAbsoluteValueIsNonNegative([IntRange('Value', Low(Integer) + 1, High(Integer) - 1)] const Value: Integer);
+
+    [Test]
+    procedure RunTestPositiveValuesArePositive;
 
     [ForAll(100)]
     procedure TestPositiveValuesArePositive([IntPositive('Value', 10000)] const Value: Integer);
 
+    [Test]
+    procedure RunTestNegativeValuesAreNegative;
+
     [ForAll(100)]
     procedure TestNegativeValuesAreNegative([IntNegative('Value', -10000)] const Value: Integer);
+
+    [Test]
+    procedure RunTestNonZeroValuesAreNotZero;
 
     [ForAll(100)]
     procedure TestNonZeroValuesAreNotZero([IntNonZero('Value', -1000, 1000)] const Value: Integer);
@@ -57,36 +57,36 @@ type
     [Test]
     procedure RunTestReverseOfReverseIsIdentity;
 
-    [Test]
-    procedure RunTestConcatenationLength;
-
-    [Test]
-    procedure RunTestUpperCaseIsIdempotent;
-
-    [Test]
-    procedure RunTestAlphaStringContainsOnlyLetters;
-
-    [Test]
-    procedure RunTestNumericStringContainsOnlyDigits;
-
-    [Test]
-    procedure RunTestEmptyStringHandling;
-
     [ForAll(100)]
     procedure TestReverseOfReverseIsIdentity([StringAlpha('Text', 0, 100)] const Text: string);
+
+    [Test]
+    procedure RunTestConcatenationLength;
 
     [ForAll(100)]
     procedure TestConcatenationLength([StringAlpha('A', 0, 50)] const A: string;
                                       [StringAlpha('B', 0, 50)] const B: string);
 
+    [Test]
+    procedure RunTestUpperCaseIsIdempotent;
+
     [ForAll(100)]
     procedure TestUpperCaseIsIdempotent([StringAlpha('Text', 0, 100)] const Text: string);
+
+    [Test]
+    procedure RunTestAlphaStringContainsOnlyLetters;
 
     [ForAll(100)]
     procedure TestAlphaStringContainsOnlyLetters([StringAlpha('Text', 1, 50)] const Text: string);
 
+    [Test]
+    procedure RunTestNumericStringContainsOnlyDigits;
+
     [ForAll(100)]
     procedure TestNumericStringContainsOnlyDigits([StringNumeric('Text', 1, 50)] const Text: string);
+
+    [Test]
+    procedure RunTestEmptyStringHandling;
 
     [ForAll(100)]
     procedure TestEmptyStringHandling([StringGen('Text', 0, 100)] const Text: string);
@@ -98,12 +98,12 @@ type
     [Test]
     procedure RunTestStringRepetition;
 
-    [Test]
-    procedure RunTestSubstringLength;
-
     [ForAll(100)]
     procedure TestStringRepetition([StringAlpha('Text', 1, 20)] const Text: string;
                                    [IntPositive('Count', 10)] const Count: Integer);
+
+    [Test]
+    procedure RunTestSubstringLength;
 
     [ForAll(100)]
     procedure TestSubstringLength([StringAlpha('Text', 5, 50)] const Text: string;

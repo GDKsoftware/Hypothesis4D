@@ -16,11 +16,11 @@ type
     [Test]
     procedure RunTestReverseIsInvolutive;
 
-    [Test]
-    procedure RunTestReverseLengthPreserved;
-
     [ForAll(100)]
     procedure TestReverseIsInvolutive([StringAlpha('Text', 0, 50)] const Text: string);
+
+    [Test]
+    procedure RunTestReverseLengthPreserved;
 
     [ForAll(100)]
     procedure TestReverseLengthPreserved([StringGen('Text', 0, 100)] const Text: string);
@@ -32,20 +32,20 @@ type
     [Test]
     procedure RunTestAdditionIsCommutative;
 
-    [Test]
-    procedure RunTestAdditionIsAssociative;
-
-    [Test]
-    procedure RunTestIsEvenConsistency;
-
     [ForAll(100)]
     procedure TestAdditionIsCommutative([IntRange('A', -1000, 1000)] const A: Integer;
                                         [IntRange('B', -1000, 1000)] const B: Integer);
+
+    [Test]
+    procedure RunTestAdditionIsAssociative;
 
     [ForAll(100)]
     procedure TestAdditionIsAssociative([IntRange('A', -100, 100)] const A: Integer;
                                         [IntRange('B', -100, 100)] const B: Integer;
                                         [IntRange('C', -100, 100)] const C: Integer);
+
+    [Test]
+    procedure RunTestIsEvenConsistency;
 
     [ForAll(100)]
     procedure TestIsEvenConsistency([IntRange('Value', -10000, 10000)] const Value: Integer);

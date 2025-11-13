@@ -2,7 +2,7 @@
 
 ## Project Guidelines
 
-This project uses two key guideline documents located in the `.docs` folder:
+This project uses three key guideline documents located in the `.docs` folder:
 
 1. **Interaction Guidelines** (`.docs/gdk-ai-interaction-guidelines.md`)
    - How to communicate with the developer
@@ -16,7 +16,14 @@ This project uses two key guideline documents located in the `.docs` folder:
    - Architecture principles
    - Quality standards
 
-**Important**: Always follow both documents when assisting with this codebase. Read them before starting any development work.
+3. **Hypothesis4D Coding Guidelines** (`.docs/hypothesis-coding-guidelines.md`)
+   - Project-specific naming conventions
+   - Architecture and component organization
+   - Generator implementation patterns
+   - Test structure and patterns
+   - Attribute usage and formatting
+
+**Important**: Always follow all three documents when assisting with this codebase. Read them before starting any development work.
 
 ## Project Doel
 
