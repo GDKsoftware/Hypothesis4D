@@ -100,6 +100,12 @@
         <DCCReference Include="..\src\Hypothesis.Generators.Interfaces.pas"/>
         <DCCReference Include="..\examples\Hypothesis.Examples.Tests.pas"/>
         <DCCReference Include="..\examples\Hypothesis.Examples.pas"/>
+        <DCCReference Include="Hypothesis.Generators.Booleans.Tests.pas"/>
+        <DCCReference Include="..\src\Hypothesis.Generators.Booleans.pas"/>
+        <DCCReference Include="..\src\Hypothesis.Generators.DateTimes.pas"/>
+        <DCCReference Include="..\src\Hypothesis.Generators.Floats.pas"/>
+        <DCCReference Include="Hypothesis.Generators.DateTimes.Tests.pas"/>
+        <DCCReference Include="Hypothesis.Generators.Floats.Tests.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

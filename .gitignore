@@ -36,6 +36,7 @@ __recovery/
 *.local
 *.identcache
 *.projdata
+delphi.config.json
 
 # DUnit / DUnitX
 dunit-results/

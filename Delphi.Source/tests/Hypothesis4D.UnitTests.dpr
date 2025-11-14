@@ -23,7 +23,13 @@ uses
   Hypothesis.Generators.Strings in '..\src\Hypothesis.Generators.Strings.pas',
   Hypothesis.Generators.Interfaces in '..\src\Hypothesis.Generators.Interfaces.pas',
   Hypothesis.Examples.Tests in '..\examples\Hypothesis.Examples.Tests.pas',
-  Hypothesis.Examples in '..\examples\Hypothesis.Examples.pas';
+  Hypothesis.Examples in '..\examples\Hypothesis.Examples.pas',
+  Hypothesis.Generators.Booleans.Tests in 'Hypothesis.Generators.Booleans.Tests.pas',
+  Hypothesis.Generators.Booleans in '..\src\Hypothesis.Generators.Booleans.pas',
+  Hypothesis.Generators.DateTimes in '..\src\Hypothesis.Generators.DateTimes.pas',
+  Hypothesis.Generators.Floats in '..\src\Hypothesis.Generators.Floats.pas',
+  Hypothesis.Generators.DateTimes.Tests in 'Hypothesis.Generators.DateTimes.Tests.pas',
+  Hypothesis.Generators.Floats.Tests in 'Hypothesis.Generators.Floats.Tests.pas';
 
 { keep comment here to protect the following conditional from being removed by the IDE when adding a unit }
 {$IFNDEF TESTINSIGHT}

@@ -54,7 +54,7 @@ type
     procedure RunTestStringReverse;
 
     [ForAll(100)]
-    procedure TestStringReverse([StringAlpha('Text', 0, 50)] const Text: string);
+    procedure TestStringReverse([StringAlpha(0, 50)] const Text: string);
   end;
 
 implementation
@@ -90,7 +90,7 @@ end.
 
 ### Integer Strategies
 
-#### `IntRange(ParamName, Min, Max)`
+#### `IntRange(Min, Max)`
 Generates integers within the specified range (inclusive).
 
 ```delphi
@@ -98,7 +98,7 @@ Generates integers within the specified range (inclusive).
 procedure RunTestIntRange;
 
 [ForAll(100)]
-procedure TestIntRange([IntRange('Value', -100, 100)] const Value: Integer);
+procedure TestIntRange([IntRange(-100, 100)] const Value: Integer);
 
 // Implementation
 procedure TMyTests.RunTestIntRange;
@@ -107,136 +107,136 @@ begin
 end;
 ```
 
-#### `IntPositive(ParamName, Max)`
+#### `IntPositive(Max)`
 Generates positive integers from 1 to Max (inclusive).
 
 ```delphi
 [ForAll(100)]
-procedure TestPositive([IntPositive('Count', 1000)] const Count: Integer);
+procedure TestPositive([IntPositive(1000)] const Count: Integer);
 ```
 
-#### `IntNegative(ParamName, Min)`
+#### `IntNegative(Min)`
 Generates negative integers from Min to -1 (inclusive).
 
 ```delphi
 [ForAll(100)]
-procedure TestNegative([IntNegative('Debt', -1000)] const Debt: Integer);
+procedure TestNegative([IntNegative(-1000)] const Debt: Integer);
 ```
 
-#### `IntNonZero(ParamName, Min, Max)`
+#### `IntNonZero(Min, Max)`
 Generates integers in the range Min to Max, excluding zero.
 
 ```delphi
 [ForAll(100)]
-procedure TestNonZero([IntNonZero('Divisor', -100, 100)] const Divisor: Integer);
+procedure TestNonZero([IntNonZero(-100, 100)] const Divisor: Integer);
 ```
 
 ### String Strategies
 
-#### `StringGen(ParamName, MinLen, MaxLen)`
+#### `StringGen(MinLen, MaxLen)`
 Generates strings with arbitrary printable characters.
 
 ```delphi
 [ForAll(100)]
-procedure TestAnyString([StringGen('Text', 0, 100)] const Text: string);
+procedure TestAnyString([StringGen(0, 100)] const Text: string);
 ```
 
-#### `StringAlpha(ParamName, MinLen, MaxLen)`
+#### `StringAlpha(MinLen, MaxLen)`
 Generates strings containing only alphabetic characters (A-Z, a-z).
 
 ```delphi
 [ForAll(100)]
-procedure TestAlphaString([StringAlpha('Name', 1, 50)] const Name: string);
+procedure TestAlphaString([StringAlpha(1, 50)] const Name: string);
 ```
 
-#### `StringNumeric(ParamName, MinLen, MaxLen)`
+#### `StringNumeric(MinLen, MaxLen)`
 Generates strings containing only numeric digits (0-9).
 
 ```delphi
 [ForAll(100)]
-procedure TestNumericString([StringNumeric('Code', 5, 10)] const Code: string);
+procedure TestNumericString([StringNumeric(5, 10)] const Code: string);
 ```
 
 ### Boolean Strategies
 
-#### `Boolean(ParamName)`
+#### `Boolean`
 Generates boolean values (True or False).
 
 ```delphi
 [ForAll(100)]
-procedure TestBoolean([Boolean('Flag')] const Flag: Boolean);
+procedure TestBoolean([Boolean] const Flag: Boolean);
 ```
 
 ### Float/Double Strategies
 
-#### `FloatRange(ParamName, Min, Max, AllowNaN, AllowInfinity)`
+#### `FloatRange(Min, Max, AllowNaN, AllowInfinity)`
 Generates floating-point values within the specified range.
 
 ```delphi
 [ForAll(100)]
-procedure TestFloatRange([FloatRange('Value', -100.0, 100.0)] const Value: Double);
+procedure TestFloatRange([FloatRange(-100.0, 100.0)] const Value: Double);
 
 // With special values
 [ForAll(100)]
-procedure TestFloatSpecial([FloatRange('Value', -10.0, 10.0, True, True)] const Value: Double);
+procedure TestFloatSpecial([FloatRange(-10.0, 10.0, True, True)] const Value: Double);
 ```
 
-#### `FloatPositive(ParamName, Max)`
+#### `FloatPositive(Max)`
 Generates positive floating-point values greater than zero.
 
 ```delphi
 [ForAll(100)]
-procedure TestPositiveFloat([FloatPositive('Amount', 1000.0)] const Amount: Double);
+procedure TestPositiveFloat([FloatPositive(1000.0)] const Amount: Double);
 ```
 
-#### `FloatNegative(ParamName, Min)`
+#### `FloatNegative(Min)`
 Generates negative floating-point values less than zero.
 
 ```delphi
 [ForAll(100)]
-procedure TestNegativeFloat([FloatNegative('Debt', -1000.0)] const Debt: Double);
+procedure TestNegativeFloat([FloatNegative(-1000.0)] const Debt: Double);
 ```
 
-#### `FloatUnit(ParamName)`
+#### `FloatUnit`
 Generates floating-point values in the unit interval [0.0, 1.0].
 
 ```delphi
 [ForAll(100)]
-procedure TestProbability([FloatUnit('Probability')] const Probability: Double);
+procedure TestProbability([FloatUnit] const Probability: Double);
 ```
 
 ### Date/DateTime Strategies
 
-#### `DateRange(ParamName, MinYear, MaxYear)`
+#### `DateRange(MinYear, MaxYear)`
 Generates date values (TDate) within the specified year range.
 
 ```delphi
 [ForAll(100)]
-procedure TestDate([DateRange('Date', 1900, 2100)] const Date: TDate);
+procedure TestDate([DateRange(1900, 2100)] const Date: TDate);
 ```
 
-#### `DateTimeRange(ParamName, MinYear, MaxYear)`
+#### `DateTimeRange(MinYear, MaxYear)`
 Generates datetime values (TDateTime) with both date and time components.
 
 ```delphi
 [ForAll(100)]
-procedure TestDateTime([DateTimeRange('DT', 1900, 2100)] const DT: TDateTime);
+procedure TestDateTime([DateTimeRange(1900, 2100)] const DT: TDateTime);
 ```
 
-#### `DateRecent(ParamName, Days)`
+#### `DateRecent(Days)`
 Generates recent dates within the specified number of days from today.
 
 ```delphi
 [ForAll(100)]
-procedure TestRecentDate([DateRecent('Date', 30)] const Date: TDate);
+procedure TestRecentDate([DateRecent(30)] const Date: TDate);
 ```
 
-#### `TimeRange(ParamName)`
+#### `TimeRange`
 Generates time values (TTime) representing time of day (00:00:00 to 23:59:59).
 
 ```delphi
 [ForAll(100)]
-procedure TestTime([TimeRange('Time')] const Time: TTime);
+procedure TestTime([TimeRange] const Time: TTime);
 ```
 
 ## Configuring Iterations
@@ -245,7 +245,7 @@ Use the `ForAll` attribute to specify the number of test iterations (default: 10
 
 ```delphi
 [ForAll(1000)]
-procedure TestWithManyIterations([IntRange('Value', 1, 100)] const Value: Integer);
+procedure TestWithManyIterations([IntRange(1, 100)] const Value: Integer);
 ```
 
 ## Multiple Parameters
@@ -254,8 +254,8 @@ Property tests can accept multiple parameters with different strategies:
 
 ```delphi
 [ForAll(100)]
-procedure TestAddition([IntRange('A', -1000, 1000)] const A: Integer;
-                       [IntRange('B', -1000, 1000)] const B: Integer);
+procedure TestAddition([IntRange(-1000, 1000)] const A: Integer;
+                       [IntRange(-1000, 1000)] const B: Integer);
 begin
   const Sum = Int64(A) + Int64(B);
   Assert.AreEqual(Sum, Int64(B) + Int64(A), 'Addition should be commutative');

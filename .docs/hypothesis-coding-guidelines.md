@@ -276,32 +276,18 @@ Parameter attributes must stay with their parameters and follow alignment rules:
 ```delphi
 // ✅ Good - single parameter on one line
 [ForAll(100)]
-procedure TestMethod([IntRange('Value', -1000, 1000)] const Value: Integer);
+procedure TestMethod([IntRange(-1000, 1000)] const Value: Integer);
 
 // ✅ Good - multiple parameters aligned
 [ForAll(100)]
-procedure TestMethod([IntRange('A', -1000, 1000)] const A: Integer;
-                    [IntRange('B', -1000, 1000)] const B: Integer);
+procedure TestMethod([IntRange(-1000, 1000)] const A: Integer;
+                    [IntRange(-1000, 1000)] const B: Integer);
 
 // ❌ Bad - attribute separated from parameter
 [ForAll(100)]
 procedure TestMethod(
-  [IntRange('Value', -1000, 1000)] const Value: Integer
+  [IntRange(-1000, 1000)] const Value: Integer
 );
-```
-
-### Attribute Parameter Order
-
-Strategy attributes should follow the pattern: `(ParamName, ...config)`:
-
-```delphi
-// ✅ Good - name first, then configuration
-[IntRange('Value', -1000, 1000)]
-[StringAlpha('Text', 0, 50)]
-[IntPositive('Count', 100)]
-
-// ❌ Bad - configuration first
-[IntRange(-1000, 1000, 'Value')]
 ```
 
 ## File Organization
@@ -362,11 +348,11 @@ Choose the most restrictive strategy that tests the property:
 ```delphi
 // ✅ Good - tests with positive integers only
 [ForAll(100)]
-procedure TestArrayIndex([IntPositive('Index', 100)] const Index: Integer);
+procedure TestArrayIndex([IntPositive(100)] const Index: Integer);
 
 // ❌ Bad - allows invalid values
 [ForAll(100)]
-procedure TestArrayIndex([IntRange('Index', -1000, 1000)] const Index: Integer);
+procedure TestArrayIndex([IntRange(-1000, 1000)] const Index: Integer);
 ```
 
 ## Documentation

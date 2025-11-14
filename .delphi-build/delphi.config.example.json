@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "description": "Delphi build configuratie - kopieer naar delphi.config.json en pas aan",
+  "description": "Delphi build configuratie - use the build-script or copy this file to delphi.config.json and adjust the folders",
   
   "dcc32": "c:\\Program Files (x86)\\Embarcadero\\Studio\\23.0\\bin\\dcc32.exe",
   
@@ -15,7 +15,7 @@
   
   "projectPaths": {
     "spring4d": "C:\\Dev\\Sources\\Delphi\\Spring4d\\Library\\Delphi12",
-    "jcl": "C:\\Users\\KeesdeKraker\\Documents\\Embarcadero\\Studio\\23.0\\CatalogRepository\\JEDICodeLibraryJCL",
+    "jcl": "C:\\Users\\UserName\\Documents\\Embarcadero\\Studio\\23.0\\CatalogRepository\\JEDICodeLibraryJCL",
     "toolsapi": "C:\\Dev\\Sources\\Delphi\\ToolsAPI-helper",
     "codolex_spring": "C:\\Dev\\Sources\\Delphi\\Codolex\\Code\\Libraries\\Spring\\Dcu\\23.0",
     "codolex_synedit": "C:\\Dev\\Sources\\Delphi\\Codolex\\Code\\Libraries\\SynEdit\\Packages\\11AndAbove\\Delphi\\Dcu\\23.0",

@@ -17,38 +17,38 @@ type
     procedure RunTestReversePreservesSign;
 
     [ForAll(100)]
-    procedure TestReversePreservesSign([IntRange('Value', -1000, 1000)] const Value: Integer);
+    procedure TestReversePreservesSign([IntRange(-1000, 1000)] const Value: Integer);
 
     [Test]
     procedure RunTestAdditionIsCommutative;
 
     [ForAll(100)]
-    procedure TestAdditionIsCommutative([IntRange('A', -1000, 1000)] const A: Integer;
-                                        [IntRange('B', -1000, 1000)] const B: Integer);
+    procedure TestAdditionIsCommutative([IntRange(-1000, 1000)] const A: Integer;
+                                        [IntRange(-1000, 1000)] const B: Integer);
 
     [Test]
     procedure RunTestAbsoluteValueIsNonNegative;
 
     [ForAll(100)]
-    procedure TestAbsoluteValueIsNonNegative([IntRange('Value', Low(Integer) + 1, High(Integer) - 1)] const Value: Integer);
+    procedure TestAbsoluteValueIsNonNegative([IntRange(Low(Integer) + 1, High(Integer) - 1)] const Value: Integer);
 
     [Test]
     procedure RunTestPositiveValuesArePositive;
 
     [ForAll(100)]
-    procedure TestPositiveValuesArePositive([IntPositive('Value', 10000)] const Value: Integer);
+    procedure TestPositiveValuesArePositive([IntPositive(10000)] const Value: Integer);
 
     [Test]
     procedure RunTestNegativeValuesAreNegative;
 
     [ForAll(100)]
-    procedure TestNegativeValuesAreNegative([IntNegative('Value', -10000)] const Value: Integer);
+    procedure TestNegativeValuesAreNegative([IntNegative(-10000)] const Value: Integer);
 
     [Test]
     procedure RunTestNonZeroValuesAreNotZero;
 
     [ForAll(100)]
-    procedure TestNonZeroValuesAreNotZero([IntNonZero('Value', -1000, 1000)] const Value: Integer);
+    procedure TestNonZeroValuesAreNotZero([IntNonZero(-1000, 1000)] const Value: Integer);
   end;
 
   [TestFixture]
@@ -58,35 +58,35 @@ type
     procedure RunTestDoubleNegation;
 
     [ForAll(100)]
-    procedure TestDoubleNegation([Boolean('Value')] const Value: Boolean);
+    procedure TestDoubleNegation([Boolean] const Value: Boolean);
 
     [Test]
     procedure RunTestAndIsCommutative;
 
     [ForAll(100)]
-    procedure TestAndIsCommutative([Boolean('A')] const A: Boolean;
-                                   [Boolean('B')] const B: Boolean);
+    procedure TestAndIsCommutative([Boolean] const A: Boolean;
+                                   [Boolean] const B: Boolean);
 
     [Test]
     procedure RunTestOrIsCommutative;
 
     [ForAll(100)]
-    procedure TestOrIsCommutative([Boolean('A')] const A: Boolean;
-                                  [Boolean('B')] const B: Boolean);
+    procedure TestOrIsCommutative([Boolean] const A: Boolean;
+                                  [Boolean] const B: Boolean);
 
     [Test]
     procedure RunTestDeMorganAnd;
 
     [ForAll(100)]
-    procedure TestDeMorganAnd([Boolean('A')] const A: Boolean;
-                              [Boolean('B')] const B: Boolean);
+    procedure TestDeMorganAnd([Boolean] const A: Boolean;
+                              [Boolean] const B: Boolean);
 
     [Test]
     procedure RunTestDeMorganOr;
 
     [ForAll(100)]
-    procedure TestDeMorganOr([Boolean('A')] const A: Boolean;
-                             [Boolean('B')] const B: Boolean);
+    procedure TestDeMorganOr([Boolean] const A: Boolean;
+                             [Boolean] const B: Boolean);
   end;
 
   [TestFixture]
@@ -96,38 +96,38 @@ type
     procedure RunTestAdditionIsCommutative;
 
     [ForAll(100)]
-    procedure TestAdditionIsCommutative([FloatRange('A', -1000.0, 1000.0)] const A: Double;
-                                        [FloatRange('B', -1000.0, 1000.0)] const B: Double);
+    procedure TestAdditionIsCommutative([FloatRange(-1000.0, 1000.0)] const A: Double;
+                                        [FloatRange(-1000.0, 1000.0)] const B: Double);
 
     [Test]
     procedure RunTestAbsoluteValueIsPositive;
 
     [ForAll(100)]
-    procedure TestAbsoluteValueIsPositive([FloatRange('Value', -1000.0, 1000.0)] const Value: Double);
+    procedure TestAbsoluteValueIsPositive([FloatRange(-1000.0, 1000.0)] const Value: Double);
 
     [Test]
     procedure RunTestSqrtSquare;
 
     [ForAll(100)]
-    procedure TestSqrtSquare([FloatPositive('Value', 1000.0)] const Value: Double);
+    procedure TestSqrtSquare([FloatPositive(1000.0)] const Value: Double);
 
     [Test]
     procedure RunTestUnitIntervalBounds;
 
     [ForAll(100)]
-    procedure TestUnitIntervalBounds([FloatUnit('Value')] const Value: Double);
+    procedure TestUnitIntervalBounds([FloatUnit] const Value: Double);
 
     [Test]
     procedure RunTestPositiveValuesArePositive;
 
     [ForAll(100)]
-    procedure TestPositiveValuesArePositive([FloatPositive('Value', 1000.0)] const Value: Double);
+    procedure TestPositiveValuesArePositive([FloatPositive(1000.0)] const Value: Double);
 
     [Test]
     procedure RunTestNegativeValuesAreNegative;
 
     [ForAll(100)]
-    procedure TestNegativeValuesAreNegative([FloatNegative('Value', -1000.0)] const Value: Double);
+    procedure TestNegativeValuesAreNegative([FloatNegative(-1000.0)] const Value: Double);
   end;
 
   [TestFixture]
@@ -137,32 +137,32 @@ type
     procedure RunTestDateAddSubtract;
 
     [ForAll(100)]
-    procedure TestDateAddSubtract([DateRange('Date', 1900, 2100)] const Date: TDate);
+    procedure TestDateAddSubtract([DateRange(1900, 2100)] const Date: TDate);
 
     [Test]
     procedure RunTestDateOrdering;
 
     [ForAll(100)]
-    procedure TestDateOrdering([DateRange('Date1', 1900, 2100)] const Date1: TDate;
-                               [DateRange('Date2', 1900, 2100)] const Date2: TDate);
+    procedure TestDateOrdering([DateRange(1900, 2100)] const Date1: TDate;
+                               [DateRange(1900, 2100)] const Date2: TDate);
 
     [Test]
     procedure RunTestTimeWithinDay;
 
     [ForAll(100)]
-    procedure TestTimeWithinDay([TimeRange('Time')] const Time: TTime);
+    procedure TestTimeWithinDay([TimeRange] const Time: TTime);
 
     [Test]
     procedure RunTestDateTimeComponents;
 
     [ForAll(100)]
-    procedure TestDateTimeComponents([DateTimeRange('DT', 1900, 2100)] const DT: TDateTime);
+    procedure TestDateTimeComponents([DateTimeRange(1900, 2100)] const DT: TDateTime);
 
     [Test]
     procedure RunTestRecentDatesAreRecent;
 
     [ForAll(100)]
-    procedure TestRecentDatesAreRecent([DateRecent('Date', 30)] const Date: TDate);
+    procedure TestRecentDatesAreRecent([DateRecent(30)] const Date: TDate);
   end;
 
   [TestFixture]
@@ -172,38 +172,38 @@ type
     procedure RunTestReverseOfReverseIsIdentity;
 
     [ForAll(100)]
-    procedure TestReverseOfReverseIsIdentity([StringAlpha('Text', 0, 100)] const Text: string);
+    procedure TestReverseOfReverseIsIdentity([StringAlpha(0, 100)] const Text: string);
 
     [Test]
     procedure RunTestConcatenationLength;
 
     [ForAll(100)]
-    procedure TestConcatenationLength([StringAlpha('A', 0, 50)] const A: string;
-                                      [StringAlpha('B', 0, 50)] const B: string);
+    procedure TestConcatenationLength([StringAlpha(0, 50)] const A: string;
+                                      [StringAlpha(0, 50)] const B: string);
 
     [Test]
     procedure RunTestUpperCaseIsIdempotent;
 
     [ForAll(100)]
-    procedure TestUpperCaseIsIdempotent([StringAlpha('Text', 0, 100)] const Text: string);
+    procedure TestUpperCaseIsIdempotent([StringAlpha(0, 100)] const Text: string);
 
     [Test]
     procedure RunTestAlphaStringContainsOnlyLetters;
 
     [ForAll(100)]
-    procedure TestAlphaStringContainsOnlyLetters([StringAlpha('Text', 1, 50)] const Text: string);
+    procedure TestAlphaStringContainsOnlyLetters([StringAlpha(1, 50)] const Text: string);
 
     [Test]
     procedure RunTestNumericStringContainsOnlyDigits;
 
     [ForAll(100)]
-    procedure TestNumericStringContainsOnlyDigits([StringNumeric('Text', 1, 50)] const Text: string);
+    procedure TestNumericStringContainsOnlyDigits([StringNumeric(1, 50)] const Text: string);
 
     [Test]
     procedure RunTestEmptyStringHandling;
 
     [ForAll(100)]
-    procedure TestEmptyStringHandling([StringGen('Text', 0, 100)] const Text: string);
+    procedure TestEmptyStringHandling([StringGen(0, 100)] const Text: string);
   end;
 
   [TestFixture]
@@ -213,15 +213,15 @@ type
     procedure RunTestStringRepetition;
 
     [ForAll(100)]
-    procedure TestStringRepetition([StringAlpha('Text', 1, 20)] const Text: string;
-                                   [IntPositive('Count', 10)] const Count: Integer);
+    procedure TestStringRepetition([StringAlpha(1, 20)] const Text: string;
+                                   [IntPositive(10)] const Count: Integer);
 
     [Test]
     procedure RunTestSubstringLength;
 
     [ForAll(100)]
-    procedure TestSubstringLength([StringAlpha('Text', 5, 50)] const Text: string;
-                                  [IntPositive('Start', 5)] const Start: Integer);
+    procedure TestSubstringLength([StringAlpha(5, 50)] const Text: string;
+                                  [IntPositive(5)] const Start: Integer);
   end;
 
 implementation

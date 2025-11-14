@@ -7,13 +7,8 @@ uses
 
 type
   TStrategyAttribute = class(TCustomAttribute)
-  private
-    FParamName: string;
-
   public
-    constructor Create(const ParamName: string);
-
-    property ParamName: string read FParamName;
+    constructor Create;
   end;
 
   ForAllAttribute = class(TCustomAttribute)
@@ -32,7 +27,7 @@ type
     FMax: Int64;
 
   public
-    constructor Create(const ParamName: string; const Min: Int64; const Max: Int64);
+    constructor Create(const Min: Int64; const Max: Int64);
 
     property Min: Int64 read FMin;
     property Max: Int64 read FMax;
@@ -43,7 +38,7 @@ type
     FMax: Int64;
 
   public
-    constructor Create(const ParamName: string; const Max: Int64 = High(Int64));
+    constructor Create(const Max: Int64 = High(Int64));
 
     property Max: Int64 read FMax;
   end;
@@ -53,7 +48,7 @@ type
     FMin: Int64;
 
   public
-    constructor Create(const ParamName: string; const Min: Int64 = Low(Int64));
+    constructor Create(const Min: Int64 = Low(Int64));
 
     property Min: Int64 read FMin;
   end;
@@ -64,7 +59,7 @@ type
     FMax: Int64;
 
   public
-    constructor Create(const ParamName: string; const Min: Int64; const Max: Int64);
+    constructor Create(const Min: Int64; const Max: Int64);
 
     property Min: Int64 read FMin;
     property Max: Int64 read FMax;
@@ -76,7 +71,7 @@ type
     FMaxLen: Integer;
 
   public
-    constructor Create(const ParamName: string; const MinLen: Integer; const MaxLen: Integer);
+    constructor Create(const MinLen: Integer; const MaxLen: Integer);
 
     property MinLen: Integer read FMinLen;
     property MaxLen: Integer read FMaxLen;
@@ -88,7 +83,7 @@ type
     FMaxLen: Integer;
 
   public
-    constructor Create(const ParamName: string; const MinLen: Integer; const MaxLen: Integer);
+    constructor Create(const MinLen: Integer; const MaxLen: Integer);
 
     property MinLen: Integer read FMinLen;
     property MaxLen: Integer read FMaxLen;
@@ -100,15 +95,13 @@ type
     FMaxLen: Integer;
 
   public
-    constructor Create(const ParamName: string; const MinLen: Integer; const MaxLen: Integer);
+    constructor Create(const MinLen: Integer; const MaxLen: Integer);
 
     property MinLen: Integer read FMinLen;
     property MaxLen: Integer read FMaxLen;
   end;
 
   BooleanAttribute = class(TStrategyAttribute)
-  public
-    constructor Create(const ParamName: string);
   end;
 
   FloatRangeAttribute = class(TStrategyAttribute)
@@ -119,7 +112,7 @@ type
     FAllowInfinity: Boolean;
 
   public
-    constructor Create(const ParamName: string; const Min: Double; const Max: Double;
+    constructor Create(const Min: Double; const Max: Double;
                        const AllowNaN: Boolean = False; const AllowInfinity: Boolean = False);
 
     property Min: Double read FMin;
@@ -133,7 +126,7 @@ type
     FMax: Double;
 
   public
-    constructor Create(const ParamName: string; const Max: Double = MaxDouble);
+    constructor Create(const Max: Double = MaxDouble);
 
     property Max: Double read FMax;
   end;
@@ -143,14 +136,12 @@ type
     FMin: Double;
 
   public
-    constructor Create(const ParamName: string; const Min: Double = -MaxDouble);
+    constructor Create(const Min: Double = -MaxDouble);
 
     property Min: Double read FMin;
   end;
 
   FloatUnitAttribute = class(TStrategyAttribute)
-  public
-    constructor Create(const ParamName: string);
   end;
 
   DateRangeAttribute = class(TStrategyAttribute)
@@ -159,8 +150,7 @@ type
     FMaxYear: Word;
 
   public
-    constructor Create(const ParamName: string; const MinYear: Word = 1900;
-                       const MaxYear: Word = 2100);
+    constructor Create(const MinYear: Word = 1900; const MaxYear: Word = 2100);
 
     property MinYear: Word read FMinYear;
     property MaxYear: Word read FMaxYear;
@@ -172,8 +162,7 @@ type
     FMaxYear: Word;
 
   public
-    constructor Create(const ParamName: string; const MinYear: Word = 1900;
-                       const MaxYear: Word = 2100);
+    constructor Create(const MinYear: Word = 1900; const MaxYear: Word = 2100);
 
     property MinYear: Word read FMinYear;
     property MaxYear: Word read FMaxYear;
@@ -184,22 +173,19 @@ type
     FDays: Integer;
 
   public
-    constructor Create(const ParamName: string; const Days: Integer = 30);
+    constructor Create(const Days: Integer = 30);
 
     property Days: Integer read FDays;
   end;
 
   TimeRangeAttribute = class(TStrategyAttribute)
-  public
-    constructor Create(const ParamName: string);
   end;
 
 implementation
 
-constructor TStrategyAttribute.Create(const ParamName: string);
+constructor TStrategyAttribute.Create;
 begin
   inherited Create;
-  FParamName := ParamName;
 end;
 
 constructor ForAllAttribute.Create(const Iterations: Integer);
@@ -208,111 +194,96 @@ begin
   FIterations := Iterations;
 end;
 
-constructor IntRangeAttribute.Create(const ParamName: string; const Min: Int64; const Max: Int64);
+constructor IntRangeAttribute.Create(const Min: Int64; const Max: Int64);
 begin
-  inherited Create(ParamName);
+  inherited Create;
   FMin := Min;
   FMax := Max;
 end;
 
-constructor IntPositiveAttribute.Create(const ParamName: string; const Max: Int64);
+constructor IntPositiveAttribute.Create(const Max: Int64);
 begin
-  inherited Create(ParamName);
+  inherited Create;
   FMax := Max;
 end;
 
-constructor IntNegativeAttribute.Create(const ParamName: string; const Min: Int64);
+constructor IntNegativeAttribute.Create(const Min: Int64);
 begin
-  inherited Create(ParamName);
+  inherited Create;
   FMin := Min;
 end;
 
-constructor IntNonZeroAttribute.Create(const ParamName: string; const Min: Int64; const Max: Int64);
+constructor IntNonZeroAttribute.Create(const Min: Int64; const Max: Int64);
 begin
-  inherited Create(ParamName);
+  inherited Create;
   FMin := Min;
   FMax := Max;
 end;
 
-constructor StringGenAttribute.Create(const ParamName: string; const MinLen: Integer; const MaxLen: Integer);
+constructor StringGenAttribute.Create(const MinLen: Integer; const MaxLen: Integer);
 begin
-  inherited Create(ParamName);
+  inherited Create;
   FMinLen := MinLen;
   FMaxLen := MaxLen;
 end;
 
-constructor StringAlphaAttribute.Create(const ParamName: string; const MinLen: Integer; const MaxLen: Integer);
+constructor StringAlphaAttribute.Create(const MinLen: Integer; const MaxLen: Integer);
 begin
-  inherited Create(ParamName);
+  inherited Create;
   FMinLen := MinLen;
   FMaxLen := MaxLen;
 end;
 
-constructor StringNumericAttribute.Create(const ParamName: string; const MinLen: Integer; const MaxLen: Integer);
+constructor StringNumericAttribute.Create(const MinLen: Integer; const MaxLen: Integer);
 begin
-  inherited Create(ParamName);
+  inherited Create;
   FMinLen := MinLen;
   FMaxLen := MaxLen;
 end;
 
-constructor BooleanAttribute.Create(const ParamName: string);
-begin
-  inherited Create(ParamName);
-end;
 
-constructor FloatRangeAttribute.Create(const ParamName: string; const Min: Double;
-                                        const Max: Double; const AllowNaN: Boolean;
-                                        const AllowInfinity: Boolean);
+constructor FloatRangeAttribute.Create(const Min: Double; const Max: Double;
+                                        const AllowNaN: Boolean; const AllowInfinity: Boolean);
 begin
-  inherited Create(ParamName);
+  inherited Create;
   FMin := Min;
   FMax := Max;
   FAllowNaN := AllowNaN;
   FAllowInfinity := AllowInfinity;
 end;
 
-constructor FloatPositiveAttribute.Create(const ParamName: string; const Max: Double);
+constructor FloatPositiveAttribute.Create(const Max: Double);
 begin
-  inherited Create(ParamName);
+  inherited Create;
   FMax := Max;
 end;
 
-constructor FloatNegativeAttribute.Create(const ParamName: string; const Min: Double);
+constructor FloatNegativeAttribute.Create(const Min: Double);
 begin
-  inherited Create(ParamName);
+  inherited Create;
   FMin := Min;
 end;
 
-constructor FloatUnitAttribute.Create(const ParamName: string);
-begin
-  inherited Create(ParamName);
-end;
 
-constructor DateRangeAttribute.Create(const ParamName: string; const MinYear: Word;
-                                       const MaxYear: Word);
+constructor DateRangeAttribute.Create(const MinYear: Word; const MaxYear: Word);
 begin
-  inherited Create(ParamName);
+  inherited Create;
   FMinYear := MinYear;
   FMaxYear := MaxYear;
 end;
 
-constructor DateTimeRangeAttribute.Create(const ParamName: string; const MinYear: Word;
-                                           const MaxYear: Word);
+constructor DateTimeRangeAttribute.Create(const MinYear: Word; const MaxYear: Word);
 begin
-  inherited Create(ParamName);
+  inherited Create;
   FMinYear := MinYear;
   FMaxYear := MaxYear;
 end;
 
-constructor DateRecentAttribute.Create(const ParamName: string; const Days: Integer);
+constructor DateRecentAttribute.Create(const Days: Integer);
 begin
-  inherited Create(ParamName);
+  inherited Create;
   FDays := Days;
 end;
 
-constructor TimeRangeAttribute.Create(const ParamName: string);
-begin
-  inherited Create(ParamName);
-end;
 
 end.
