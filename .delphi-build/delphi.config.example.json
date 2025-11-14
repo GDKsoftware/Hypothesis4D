@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Delphi build configuratie - kopieer naar delphi.config.json en pas aan",
+  
+  "dcc32": "c:\\Program Files (x86)\\Embarcadero\\Studio\\23.0\\bin\\dcc32.exe",
+  
+  "basePaths": {
+    "lib": "c:\\Program Files (x86)\\Embarcadero\\Studio\\23.0\\lib\\Win32",
+    "bpl": "C:\\Users\\Public\\Documents\\Embarcadero\\Studio\\23.0\\Bpl",
+    "dcp": "C:\\Users\\Public\\Documents\\Embarcadero\\Studio\\23.0\\Dcp",
+    "hpp": "C:\\Users\\Public\\Documents\\Embarcadero\\Studio\\23.0\\hpp",
+    "imports": "C:\\Users\\Public\\Documents\\Embarcadero\\Studio\\23.0\\Imports",
+    "include": "c:\\Program Files (x86)\\Embarcadero\\Studio\\23.0\\include"
+  },
+  
+  "projectPaths": {
+    "spring4d": "C:\\Dev\\Sources\\Delphi\\Spring4d\\Library\\Delphi12",
+    "jcl": "C:\\Users\\KeesdeKraker\\Documents\\Embarcadero\\Studio\\23.0\\CatalogRepository\\JEDICodeLibraryJCL",
+    "toolsapi": "C:\\Dev\\Sources\\Delphi\\ToolsAPI-helper",
+    "codolex_spring": "C:\\Dev\\Sources\\Delphi\\Codolex\\Code\\Libraries\\Spring\\Dcu\\23.0",
+    "codolex_synedit": "C:\\Dev\\Sources\\Delphi\\Codolex\\Code\\Libraries\\SynEdit\\Packages\\11AndAbove\\Delphi\\Dcu\\23.0",
+    "codolex_mvc": "C:\\Dev\\Sources\\Delphi\\Codolex\\Migrate\\MVCFramework\\Dcu\\23.0",
+    "devexpress": "C:\\Dev\\DevExpress\\VCL\\Library\\RS29"
+  }
+}

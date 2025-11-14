@@ -73,6 +73,28 @@ Changes:
 Co-Authored-By: Claude <noreply@anthropic.com>
 ```
 
+## Building the Project
+
+### Build Unit Tests
+
+Om de unit tests te builden:
+
+1. Navigeer naar de test directory:
+   ```
+   cd Delphi.Source\tests
+   ```
+
+2. Voer het build script uit:
+   ```powershell
+   ..\..\\.delphi-build\build-script.ps1
+   ```
+
+Het build script:
+- Compileert het `Hypothesis4D.UnitTests.dpr` project
+- Gebruikt de configuratie uit `.delphi-build\delphi.config.json`
+
+**Let op**: De build configuratie moet eerst lokaal aangemaakt worden door het setup script uit te voeren vanuit de `.delphi-build` directory.
+
 ## Quick Reference
 
 ### Target
