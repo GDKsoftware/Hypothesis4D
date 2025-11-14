@@ -95,6 +95,21 @@ Het build script:
 
 **Let op**: De build configuratie moet eerst lokaal aangemaakt worden door het setup script uit te voeren vanuit de `.delphi-build` directory.
 
+### Run Unit Tests
+
+Na het builden kun je de unit tests uitvoeren:
+
+```powershell
+.\Delphi.Source\tests\Win32\Debug\Hypothesis4D.UnitTests.exe --consolemode:Quiet
+```
+
+**BELANGRIJK**: Na elke grote aanpassing aan de code MOET je automatisch:
+1. De unit tests builden (zie hierboven)
+2. De unit tests uitvoeren met `--consolemode:Quiet`
+3. Controleren dat alle tests slagen (0 failed, 0 errored)
+
+Dit zorgt ervoor dat regressies direct worden opgemerkt en de code kwaliteit behouden blijft.
+
 ## Quick Reference
 
 ### Target
