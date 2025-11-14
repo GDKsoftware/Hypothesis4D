@@ -1,96 +1,96 @@
-# Plan: Minimale Property-Based Testing Library voor Delphi
+# Plan: Minimal Property-Based Testing Library for Delphi
 
-## Requirements Samenvatting
+## Requirements Summary
 
-Gebaseerd op de verzamelde requirements, wordt het volgende geïmplementeerd:
+Based on the gathered requirements, the following will be implemented:
 
-### Technische Specificaties
-- **Target**: Delphi 11 of nieuwer
-- **Test Framework**: DUnitX integratie
+### Technical Specifications
+- **Target**: Delphi 11 or newer
+- **Test Framework**: DUnitX integration
 - **Data Types**: Integers (Int64, Integer) + Strings
-- **Shrinking**: Basis shrinking algoritmes
-- **Database**: Geen (later toe te voegen)
-- **Default Iteraties**: 10 (configureerbaar per test)
+- **Shrinking**: Basic shrinking algorithms
+- **Database**: None (can be added later)
+- **Default Iterations**: 10 (configurable per test)
 
 ### Integer Strategies
-1. `IntRange(ParamName, Min, Max)` - Range tussen min en max
-2. `IntPositive(ParamName, Max)` - Positieve integers 1..Max
-3. `IntNegative(ParamName, Min)` - Negatieve integers Min..-1
-4. `IntNonZero(ParamName, Min, Max)` - Range exclusief nul
+1. `IntRange(ParamName, Min, Max)` - Range between min and max
+2. `IntPositive(ParamName, Max)` - Positive integers 1..Max
+3. `IntNegative(ParamName, Min)` - Negative integers Min..-1
+4. `IntNonZero(ParamName, Min, Max)` - Range excluding zero
 
 ### String Strategies
-1. `StringGen(ParamName, MinLen, MaxLen)` - Willekeurige characters
-2. `StringAlpha(ParamName, MinLen, MaxLen)` - Alleen letters (A-Z, a-z)
-3. `StringNumeric(ParamName, MinLen, MaxLen)` - Alleen cijfers (0-9)
+1. `StringGen(ParamName, MinLen, MaxLen)` - Random characters
+2. `StringAlpha(ParamName, MinLen, MaxLen)` - Letters only (A-Z, a-z)
+3. `StringNumeric(ParamName, MinLen, MaxLen)` - Digits only (0-9)
 
-### Basis Shrinking
-- **Integer**: Naar nul toe verkleinen (halveren, binary search)
-- **String**: Lengte verkorten (halveren, character deletion)
+### Basic Shrinking
+- **Integer**: Shrink towards zero (halving, binary search)
+- **String**: Reduce length (halving, character deletion)
 
-## Implementatie Plan
+## Implementation Plan
 
-### Fase 1: Kern Architectuur (Units 1-3)
+### Phase 1: Core Architecture (Units 1-3)
 1. **Hypothesis.Attributes.pas**
-   - `ForAllAttribute` class met Iterations parameter
-   - Basis `StrategyAttribute` class
-   - Alle integer strategy attributes (4x)
-   - Alle string strategy attributes (3x)
+   - `ForAllAttribute` class with Iterations parameter
+   - Base `StrategyAttribute` class
+   - All integer strategy attributes (4x)
+   - All string strategy attributes (3x)
 
 2. **Hypothesis.Generators.pas**
    - `IValueGenerator<T>` interface
-   - `TIntegerGenerator` class met shrinking
-   - `TStringGenerator` class met shrinking
+   - `TIntegerGenerator` class with shrinking
+   - `TStringGenerator` class with shrinking
    - Generator registry/factory
 
 3. **Hypothesis.Core.pas**
    - `TPropertyTestRunner` class
    - RTTI-based parameter inspection
-   - Test execution loop met shrinking
+   - Test execution loop with shrinking
    - Failure reporting
 
-### Fase 2: DUnitX Integratie (Unit 4)
+### Phase 2: DUnitX Integration (Unit 4)
 4. **Hypothesis.DUnitX.pas**
-   - Extension voor DUnitX TestFixture
-   - Automatische property test discovery
-   - Integratie met DUnitX assertions
-   - Pretty-printing van failures
+   - Extension for DUnitX TestFixture
+   - Automatic property test discovery
+   - Integration with DUnitX assertions
+   - Pretty-printing of failures
 
-### Fase 3: Voorbeelden & Documentatie
+### Phase 3: Examples & Documentation
 5. **Hypothesis.Examples.pas**
-   - 5-10 voorbeeld property tests
-   - Demo van alle strategy types
-   - Best practices voorbeelden
+   - 5-10 example property tests
+   - Demo of all strategy types
+   - Best practices examples
 
 6. **README.md**
-   - Installatie instructies
+   - Installation instructions
    - Quick start guide
-   - API documentatie
-   - Voorbeeld gebruik
+   - API documentation
+   - Example usage
 
 ## Deliverables
 
-### Code Bestanden
+### Code Files
 ```
 src/
-├── Hypothesis.Attributes.pas      (~200 regels)
-├── Hypothesis.Generators.pas      (~300 regels)
-├── Hypothesis.Core.pas            (~400 regels)
-├── Hypothesis.DUnitX.pas          (~150 regels)
-└── Hypothesis.Types.pas           (~50 regels)
+├── Hypothesis.Attributes.pas      (~200 lines)
+├── Hypothesis.Generators.pas      (~300 lines)
+├── Hypothesis.Core.pas            (~400 lines)
+├── Hypothesis.DUnitX.pas          (~150 lines)
+└── Hypothesis.Types.pas           (~50 lines)
 
 examples/
-└── Hypothesis.Examples.pas        (~300 regels)
+└── Hypothesis.Examples.pas        (~300 lines)
 
 docs/
 └── README.md
 ```
 
-### Geschatte Code Size
-- **Totaal**: ~1400 regels productie code
-- **Voorbeelden**: ~300 regels
-- **Documentatie**: Uitgebreid
+### Estimated Code Size
+- **Total**: ~1400 lines of production code
+- **Examples**: ~300 lines
+- **Documentation**: Comprehensive
 
-## Voorbeeld API Gebruik
+## Example API Usage
 
 ```pascal
 type
@@ -98,7 +98,7 @@ type
   TMyPropertyTests = class
   public
     [Test]
-    [ForAll(10)]  // 10 iteraties (kan aangepast naar 100+ voor CI)
+    [ForAll(10)]  // 10 iterations (can be adjusted to 100+ for CI)
     procedure TestStringReverse(
       [StringAlpha('input', 0, 50)] const AInput: string
     );
@@ -119,63 +119,63 @@ type
   end;
 ```
 
-## Tijdsinschatting
-- **Fase 1 (Kern)**: 2-3 dagen
-- **Fase 2 (DUnitX)**: 1 dag
-- **Fase 3 (Docs/Examples)**: 1 dag
-- **Testing & Refinement**: 1 dag
-- **Totaal**: ~5-6 dagen werk
+## Time Estimate
+- **Phase 1 (Core)**: 2-3 days
+- **Phase 2 (DUnitX)**: 1 day
+- **Phase 3 (Docs/Examples)**: 1 day
+- **Testing & Refinement**: 1 day
+- **Total**: ~5-6 days work
 
-## Toekomstige Uitbreidingen (Niet in MVP)
+## Future Extensions (Not in MVP)
 - Collections (TArray<T>, TList<T>)
 - Floats/Doubles
 - Booleans
 - File-based test database
-- Geavanceerd shrinking
+- Advanced shrinking
 - Custom type strategies
 - Stateful testing
-- Meer string varianten (Unicode, ASCII, etc.)
+- More string variants (Unicode, ASCII, etc.)
 
-## Ontwerpbeslissingen
+## Design Decisions
 
-### Waarom Custom Attributes?
-- Native Delphi language feature (sinds Delphi 2010)
-- Type-safe parameter configuratie
-- Declaratieve, leesbare test syntax
-- Goede IDE ondersteuning (IntelliSense)
-- Flexibel en uitbreidbaar
+### Why Custom Attributes?
+- Native Delphi language feature (since Delphi 2010)
+- Type-safe parameter configuration
+- Declarative, readable test syntax
+- Good IDE support (IntelliSense)
+- Flexible and extensible
 
-### Waarom Basis Shrinking?
-- Balans tussen complexiteit en waarde
-- Makkelijker te implementeren en debuggen
-- Voldoende voor meeste use cases
-- Kan later uitgebreid worden
+### Why Basic Shrinking?
+- Balance between complexity and value
+- Easier to implement and debug
+- Sufficient for most use cases
+- Can be extended later
 
-### Waarom Geen Database in MVP?
-- Focus op kernfunctionaliteit
-- Random seed is voldoende voor reproduceerbaarheid
-- Database kan later toegevoegd worden zonder API breaking changes
-- Vermindert complexiteit en dependencies
+### Why No Database in MVP?
+- Focus on core functionality
+- Random seed is sufficient for reproducibility
+- Database can be added later without API breaking changes
+- Reduces complexity and dependencies
 
-## Architectuur Principes
+## Architecture Principles
 
 1. **Separation of Concerns**
-   - Attributes: Declaratie van strategies
-   - Generators: Data generatie logica
+   - Attributes: Declaration of strategies
+   - Generators: Data generation logic
    - Core: Test execution engine
-   - Integration: Framework-specifieke code
+   - Integration: Framework-specific code
 
 2. **Extensibility**
-   - Nieuwe strategies door nieuwe attribute classes
-   - Custom generators via interface implementatie
-   - Generator registry voor type mapping
+   - New strategies through new attribute classes
+   - Custom generators via interface implementation
+   - Generator registry for type mapping
 
 3. **Type Safety**
-   - Gebruik van Delphi generics waar mogelijk
-   - Compile-time checking van attribute parameters
-   - RTTI voor runtime type matching
+   - Use of Delphi generics where possible
+   - Compile-time checking of attribute parameters
+   - RTTI for runtime type matching
 
 4. **Simplicity**
-   - Minimale API surface
-   - Duidelijke naming conventions
-   - Focus op common use cases
+   - Minimal API surface
+   - Clear naming conventions
+   - Focus on common use cases

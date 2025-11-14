@@ -25,34 +25,34 @@ This project uses three key guideline documents located in the `.docs` folder:
 
 **Important**: Always follow all three documents when assisting with this codebase. Read them before starting any development work.
 
-## Project Doel
+## Project Goal
 
-Dit project ontwikkelt een minimale property-based testing library voor Delphi, geïnspireerd door Python's Hypothesis library.
+This project develops a minimal property-based testing library for Delphi, inspired by Python's Hypothesis library.
 
-## Initiele Plan
+## Initial Plan
 
-Het volledige initiële plan en de requirements zijn gedocumenteerd in:
+The complete initial plan and requirements are documented in:
 
 **[.docs/InitialPlan.md](.docs/InitialPlan.md)**
 
 ## Project Status
 
-- **Fase**: ✅ MVP Voltooid
-- **Implementatie**: Alle core features zijn geïmplementeerd en getest
-- **Status**: Zie [.docs/todo.md](.docs/todo.md) voor volledige project status en toekomstige verbeteringen
+- **Phase**: ✅ MVP Complete
+- **Implementation**: All core features are implemented and tested
+- **Status**: See [.docs/todo.md](.docs/todo.md) for complete project status and future improvements
 
-**Belangrijk**: Bij het voltooien van taken moet [.docs/todo.md](.docs/todo.md) bijgewerkt worden om de actuele project status weer te geven.
+**Important**: When completing tasks, [.docs/todo.md](.docs/todo.md) must be updated to reflect the current project status.
 
 ## Git Commit Guidelines
 
-Bij het maken van commits:
+When making commits:
 
-- **Geen referenties naar AI tools**: Voeg GEEN verwijzingen toe naar Claude Code, Anthropic, of andere AI tools in commit messages
-- **Compacte samenvatting**: Een korte, duidelijke samenvatting van de wijziging is voldoende
-- **Geen uitgebreide opsommingen**: Het hoeft geen gedetailleerde lijst van alle wijzigingen te zijn
-- **Focus op het "waarom"**: Vertel waarom de wijziging is gemaakt, niet alle details van wat er veranderd is
+- **No references to AI tools**: Do NOT add references to Claude Code, Anthropic, or other AI tools in commit messages
+- **Concise summary**: A short, clear summary of the change is sufficient
+- **No extensive lists**: It doesn't need to be a detailed list of all changes
+- **Focus on the "why"**: Explain why the change was made, not all the details of what changed
 
-**Voorbeeld goede commit message**:
+**Example of good commit message**:
 ```
 Fix: Correct parameter attribute formatting in test methods
 
@@ -60,7 +60,7 @@ Updated test methods to follow the parameter attributes formatting
 guidelines for better consistency.
 ```
 
-**Voorbeeld slechte commit message**:
+**Example of bad commit message**:
 ```
 Fix parameter formatting
 
@@ -77,54 +77,54 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 ### Build Unit Tests
 
-Om de unit tests te builden:
+To build the unit tests:
 
-1. Navigeer naar de test directory:
+1. Navigate to the test directory:
    ```
    cd Delphi.Source\tests
    ```
 
-2. Voer het build script uit:
+2. Run the build script:
    ```powershell
    ..\..\\.delphi-build\build-script.ps1
    ```
 
-Het build script:
-- Compileert het `Hypothesis4D.UnitTests.dpr` project
-- Gebruikt de configuratie uit `.delphi-build\delphi.config.json`
+The build script:
+- Compiles the `Hypothesis4D.UnitTests.dpr` project
+- Uses the configuration from `.delphi-build\delphi.config.json`
 
-**Let op**: De build configuratie moet eerst lokaal aangemaakt worden door het setup script uit te voeren vanuit de `.delphi-build` directory.
+**Note**: The build configuration must first be created locally by running the setup script from the `.delphi-build` directory.
 
 ### Run Unit Tests
 
-Na het builden kun je de unit tests uitvoeren:
+After building, you can run the unit tests:
 
 ```powershell
 .\Delphi.Source\tests\Win32\Debug\Hypothesis4D.UnitTests.exe --consolemode:Quiet
 ```
 
-**BELANGRIJK**: Na elke grote aanpassing aan de code MOET je automatisch:
-1. De unit tests builden (zie hierboven)
-2. De unit tests uitvoeren met `--consolemode:Quiet`
-3. Controleren dat alle tests slagen (0 failed, 0 errored)
+**IMPORTANT**: After every major change to the code you MUST automatically:
+1. Build the unit tests (see above)
+2. Run the unit tests with `--consolemode:Quiet`
+3. Verify that all tests pass (0 failed, 0 errored)
 
-Dit zorgt ervoor dat regressies direct worden opgemerkt en de code kwaliteit behouden blijft.
+This ensures that regressions are caught immediately and code quality is maintained.
 
 ## Quick Reference
 
 ### Target
-- Delphi 11 of nieuwer
+- Delphi 11 or newer
 - DUnitX test framework
-- Custom attributes voor strategy declaratie
+- Custom attributes for strategy declaration
 
 ### Scope (MVP)
 - **Data Types**: Integers + Strings
 - **Integer Strategies**: IntRange, IntPositive, IntNegative, IntNonZero
 - **String Strategies**: StringGen, StringAlpha, StringNumeric
-- **Features**: Basis shrinking, 10 default iteraties (configureerbaar)
-- **Geen Database**: Focus op kernfunctionaliteit
+- **Features**: Basic shrinking, 10 default iterations (configurable)
+- **No Database**: Focus on core functionality
 
-### Voorbeeld Gebruik
+### Example Usage
 
 ```pascal
 type
@@ -146,6 +146,6 @@ begin
 end;
 ```
 
-## Bronmateriaal
+## Source Material
 
-De originele Python Hypothesis library staat in de `Python.Source/` folder en is gebruikt voor analyse en inspiratie.
+The original Python Hypothesis library is in the `Python.Source/` folder and was used for analysis and inspiration.
