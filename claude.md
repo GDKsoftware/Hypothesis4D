@@ -25,6 +25,18 @@ This project uses three key guideline documents located in the `.docs` folder:
 
 **Important**: Always follow all three documents when assisting with this codebase. Read them before starting any development work.
 
+## Documentation Language
+
+**All documentation, plans, todo lists, and written content MUST be in English**, regardless of the language used in prompts or conversations. This includes:
+
+- All `.md` files (README.md, CLAUDE.md, todo.md, InitialPlan.md, etc.)
+- Code comments and documentation
+- Commit messages
+- Issue descriptions
+- Any other written project documentation
+
+This ensures the project remains accessible to international developers and maintains consistency across all documentation.
+
 ## Project Goal
 
 This project develops a minimal property-based testing library for Delphi, inspired by Python's Hypothesis library.
