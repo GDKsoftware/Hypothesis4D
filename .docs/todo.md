@@ -14,14 +14,15 @@ All planning, implementation, testing, and documentation are complete. The proje
 
 ### ✅ Completed Deliverables
 
-**Core Units** (13 files):
-- ✅ `Hypothesis.Attributes.pas` - Strategy attribute declarations
+**Core Units** (14 files):
+- ✅ `Hypothesis.Attributes.pas` - Strategy attribute declarations (including new string and collection attributes)
 - ✅ `Hypothesis.Generators.Interfaces.pas` - Base interface for generators
 - ✅ `Hypothesis.Generators.Integers.pas` - Integer value generation and shrinking
-- ✅ `Hypothesis.Generators.Strings.pas` - String value generation and shrinking
+- ✅ `Hypothesis.Generators.Strings.pas` - String value generation and shrinking (enhanced with ASCII, Unicode, Email, URL, Regex)
 - ✅ `Hypothesis.Generators.Booleans.pas` - Boolean value generation and shrinking
 - ✅ `Hypothesis.Generators.Floats.pas` - Float/Double value generation with special values
 - ✅ `Hypothesis.Generators.DateTimes.pas` - Date/DateTime/Time generation and shrinking
+- ✅ `Hypothesis.Generators.Collections.pas` - Collection generators for TArray, TList, TDictionary (infrastructure only)
 - ✅ `Hypothesis.Generators.Factory.pas` - Generator creation from attributes
 - ✅ `Hypothesis.Core.pas` - Test runner with RTTI and shrinking orchestration
 - ✅ `Hypothesis.Runner.pas` - DUnitX framework integration helper
@@ -45,10 +46,11 @@ All planning, implementation, testing, and documentation are complete. The proje
 
 **Features Implemented**:
 - ✅ Integer strategies: IntRange, IntPositive, IntNegative, IntNonZero
-- ✅ String strategies: StringGen, StringAlpha, StringNumeric
+- ✅ String strategies: StringGen, StringAlpha, StringNumeric, StringAscii, StringUnicode, StringEmail, StringUrl, StringRegex
 - ✅ Boolean strategies: Boolean
 - ✅ Float/Double strategies: FloatRange, FloatPositive, FloatNegative, FloatUnit (with NaN/Infinity support)
 - ✅ Date/DateTime strategies: DateRange, DateTimeRange, DateRecent, TimeRange
+- ✅ Collection infrastructure: ArrayGen, ListGen, DictionaryGen (attributes and generators created, require manual instantiation)
 - ✅ Automatic value generation with configurable iterations
 - ✅ Smart shrinking (integers: binary search, strings: length reduction, floats: towards zero/integers, dates: towards 2000-01-01, times: towards midnight)
 - ✅ RTTI-based parameter inspection
@@ -200,12 +202,13 @@ The MVP is complete. The following features are out of scope for MVP but could b
 - ✅ Boolean strategies
 - ✅ Float/Double strategies with precision control
 - ✅ Date/DateTime strategies
-- [ ] Collections (TArray<T>, TList<T>, TDictionary<K,V>)
+- ✅ Unicode string support (StringUnicode)
+- ✅ ASCII-only strings (StringAscii)
+- ✅ String patterns (StringEmail, StringUrl)
+- ✅ Regex-based string generation (StringRegex - basic implementation)
+- ⚠️ Collections (TArray<T>, TList<T>, TDictionary<K,V>) - Infrastructure created, requires manual instantiation due to nested generator complexity
 - [ ] Record and object strategies
-- [ ] Unicode string support
-- [ ] ASCII-only strings
-- [ ] String patterns (email, URL, etc.)
-- [ ] Regex-based string generation
+- [ ] Full collection attribute support with nested strategies
 
 **Advanced Shrinking**:
 - [ ] Smarter shrinking algorithms

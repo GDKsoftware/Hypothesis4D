@@ -101,6 +101,53 @@ type
     property MaxLen: Integer read FMaxLen;
   end;
 
+  StringAsciiAttribute = class(TStrategyAttribute)
+  private
+    FMinLen: Integer;
+    FMaxLen: Integer;
+
+  public
+    constructor Create(const MinLen: Integer; const MaxLen: Integer);
+
+    property MinLen: Integer read FMinLen;
+    property MaxLen: Integer read FMaxLen;
+  end;
+
+  StringUnicodeAttribute = class(TStrategyAttribute)
+  private
+    FMinLen: Integer;
+    FMaxLen: Integer;
+
+  public
+    constructor Create(const MinLen: Integer; const MaxLen: Integer);
+
+    property MinLen: Integer read FMinLen;
+    property MaxLen: Integer read FMaxLen;
+  end;
+
+  StringEmailAttribute = class(TStrategyAttribute)
+  end;
+
+  StringUrlAttribute = class(TStrategyAttribute)
+  private
+    FIncludeProtocol: Boolean;
+
+  public
+    constructor Create(const IncludeProtocol: Boolean = True);
+
+    property IncludeProtocol: Boolean read FIncludeProtocol;
+  end;
+
+  StringRegexAttribute = class(TStrategyAttribute)
+  private
+    FPattern: string;
+
+  public
+    constructor Create(const Pattern: string);
+
+    property Pattern: string read FPattern;
+  end;
+
   BooleanAttribute = class(TStrategyAttribute)
   end;
 
@@ -181,6 +228,54 @@ type
   TimeRangeAttribute = class(TStrategyAttribute)
   end;
 
+  ArrayGenAttribute = class(TStrategyAttribute)
+  private
+    FMinCount: Integer;
+    FMaxCount: Integer;
+    FElementStrategy: TStrategyAttribute;
+
+  public
+    constructor Create(const MinCount: Integer; const MaxCount: Integer;
+                       const ElementStrategy: TStrategyAttribute);
+
+    property MinCount: Integer read FMinCount;
+    property MaxCount: Integer read FMaxCount;
+    property ElementStrategy: TStrategyAttribute read FElementStrategy;
+  end;
+
+  ListGenAttribute = class(TStrategyAttribute)
+  private
+    FMinCount: Integer;
+    FMaxCount: Integer;
+    FElementStrategy: TStrategyAttribute;
+
+  public
+    constructor Create(const MinCount: Integer; const MaxCount: Integer;
+                       const ElementStrategy: TStrategyAttribute);
+
+    property MinCount: Integer read FMinCount;
+    property MaxCount: Integer read FMaxCount;
+    property ElementStrategy: TStrategyAttribute read FElementStrategy;
+  end;
+
+  DictionaryGenAttribute = class(TStrategyAttribute)
+  private
+    FMinCount: Integer;
+    FMaxCount: Integer;
+    FKeyStrategy: TStrategyAttribute;
+    FValueStrategy: TStrategyAttribute;
+
+  public
+    constructor Create(const MinCount: Integer; const MaxCount: Integer;
+                       const KeyStrategy: TStrategyAttribute;
+                       const ValueStrategy: TStrategyAttribute);
+
+    property MinCount: Integer read FMinCount;
+    property MaxCount: Integer read FMaxCount;
+    property KeyStrategy: TStrategyAttribute read FKeyStrategy;
+    property ValueStrategy: TStrategyAttribute read FValueStrategy;
+  end;
+
 implementation
 
 constructor TStrategyAttribute.Create;
@@ -241,6 +336,31 @@ begin
   FMaxLen := MaxLen;
 end;
 
+constructor StringAsciiAttribute.Create(const MinLen: Integer; const MaxLen: Integer);
+begin
+  inherited Create;
+  FMinLen := MinLen;
+  FMaxLen := MaxLen;
+end;
+
+constructor StringUnicodeAttribute.Create(const MinLen: Integer; const MaxLen: Integer);
+begin
+  inherited Create;
+  FMinLen := MinLen;
+  FMaxLen := MaxLen;
+end;
+
+constructor StringUrlAttribute.Create(const IncludeProtocol: Boolean);
+begin
+  inherited Create;
+  FIncludeProtocol := IncludeProtocol;
+end;
+
+constructor StringRegexAttribute.Create(const Pattern: string);
+begin
+  inherited Create;
+  FPattern := Pattern;
+end;
 
 constructor FloatRangeAttribute.Create(const Min: Double; const Max: Double;
                                         const AllowNaN: Boolean; const AllowInfinity: Boolean);
@@ -285,5 +405,33 @@ begin
   FDays := Days;
 end;
 
+constructor ArrayGenAttribute.Create(const MinCount: Integer; const MaxCount: Integer;
+                                     const ElementStrategy: TStrategyAttribute);
+begin
+  inherited Create;
+  FMinCount := MinCount;
+  FMaxCount := MaxCount;
+  FElementStrategy := ElementStrategy;
+end;
+
+constructor ListGenAttribute.Create(const MinCount: Integer; const MaxCount: Integer;
+                                    const ElementStrategy: TStrategyAttribute);
+begin
+  inherited Create;
+  FMinCount := MinCount;
+  FMaxCount := MaxCount;
+  FElementStrategy := ElementStrategy;
+end;
+
+constructor DictionaryGenAttribute.Create(const MinCount: Integer; const MaxCount: Integer;
+                                          const KeyStrategy: TStrategyAttribute;
+                                          const ValueStrategy: TStrategyAttribute);
+begin
+  inherited Create;
+  FMinCount := MinCount;
+  FMaxCount := MaxCount;
+  FKeyStrategy := KeyStrategy;
+  FValueStrategy := ValueStrategy;
+end;
 
 end.

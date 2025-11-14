@@ -25,6 +25,17 @@ This project uses three key guideline documents located in the `.docs` folder:
 
 **Important**: Always follow all three documents when assisting with this codebase. Read them before starting any development work.
 
+## Adding New Files to the Project
+
+**IMPORTANT**: When creating new Pascal units (`.pas` files), you MUST:
+
+1. **Ask the developer to add the file to the Delphi project (after creating the file)**
+2. **Provide clear instructions** about:
+   - The file path where the new unit should be created
+   - The purpose of the new unit
+
+**Rationale**: Delphi projects require `.pas` files to be registered in the `.dpr` or `.dproj` project files. Simply creating a file in the file system will result in compilation errors ("Unit not found"). The developer must add the unit to the project using the Delphi IDE or by manually editing the project files.
+
 ## Documentation Language
 
 **All documentation, plans, todo lists, and written content MUST be in English**, regardless of the language used in prompts or conversations. This includes:

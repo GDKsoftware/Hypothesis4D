@@ -204,6 +204,36 @@ type
 
     [ForAll(100)]
     procedure TestEmptyStringHandling([StringGen(0, 100)] const Text: string);
+
+    [Test]
+    procedure RunTestAsciiStringContainsOnlyAscii;
+
+    [ForAll(100)]
+    procedure TestAsciiStringContainsOnlyAscii([StringAscii(1, 50)] const Text: string);
+
+    [Test]
+    procedure RunTestUnicodeStringNotEmpty;
+
+    [ForAll(100)]
+    procedure TestUnicodeStringNotEmpty([StringUnicode(1, 50)] const Text: string);
+
+    [Test]
+    procedure RunTestEmailFormat;
+
+    [ForAll(100)]
+    procedure TestEmailFormat([StringEmail] const Email: string);
+
+    [Test]
+    procedure RunTestUrlNotEmpty;
+
+    [ForAll(100)]
+    procedure TestUrlNotEmpty([StringUrl] const Url: string);
+
+    [Test]
+    procedure RunTestRegexPatternLength;
+
+    [ForAll(100)]
+    procedure TestRegexPatternLength([StringRegex('[a-z][a-z][a-z][0-9][0-9]')] const Text: string);
   end;
 
   [TestFixture]
@@ -590,6 +620,31 @@ begin
   THypothesis.Run(Self, 'TestEmptyStringHandling');
 end;
 
+procedure TStringPropertyTests.RunTestAsciiStringContainsOnlyAscii;
+begin
+  THypothesis.Run(Self, 'TestAsciiStringContainsOnlyAscii');
+end;
+
+procedure TStringPropertyTests.RunTestUnicodeStringNotEmpty;
+begin
+  THypothesis.Run(Self, 'TestUnicodeStringNotEmpty');
+end;
+
+procedure TStringPropertyTests.RunTestEmailFormat;
+begin
+  THypothesis.Run(Self, 'TestEmailFormat');
+end;
+
+procedure TStringPropertyTests.RunTestUrlNotEmpty;
+begin
+  THypothesis.Run(Self, 'TestUrlNotEmpty');
+end;
+
+procedure TStringPropertyTests.RunTestRegexPatternLength;
+begin
+  THypothesis.Run(Self, 'TestRegexPatternLength');
+end;
+
 procedure TStringPropertyTests.TestReverseOfReverseIsIdentity(const Text: string);
 var
   Reversed: string;
@@ -683,6 +738,59 @@ end;
 procedure TCombinedPropertyTests.RunTestSubstringLength;
 begin
   THypothesis.Run(Self, 'TestSubstringLength');
+end;
+
+procedure TStringPropertyTests.TestAsciiStringContainsOnlyAscii(const Text: string);
+var
+  I: Integer;
+  Ch: Char;
+begin
+  for I := 1 to Text.Length do
+  begin
+    Ch := Text[I];
+    Assert.IsTrue((Ord(Ch) >= 32) and (Ord(Ch) <= 126),
+                  Format('ASCII character at position %d should be in range [32-126], got %d', [I, Ord(Ch)]));
+  end;
+end;
+
+procedure TStringPropertyTests.TestUnicodeStringNotEmpty(const Text: string);
+begin
+  Assert.IsTrue(Text.Length > 0,
+                Format('Unicode string should not be empty, got length %d', [Text.Length]));
+end;
+
+procedure TStringPropertyTests.TestEmailFormat(const Email: string);
+begin
+  Assert.IsTrue(Email.Contains('@'), 'Email should contain @ symbol');
+  Assert.IsTrue(Email.Length > 3, 'Email should have minimum length');
+
+  var AtPos := Email.IndexOf('@');
+  Assert.IsTrue(AtPos > 0, 'Email should have local part before @');
+  Assert.IsTrue(AtPos < Email.Length - 1, 'Email should have domain after @');
+end;
+
+procedure TStringPropertyTests.TestUrlNotEmpty(const Url: string);
+begin
+  Assert.IsTrue(Url.Length > 0, 'URL should not be empty');
+
+  // Should contain a domain (has a dot)
+  Assert.IsTrue(Url.Contains('.'), 'URL should contain a domain with dot');
+end;
+
+procedure TStringPropertyTests.TestRegexPatternLength(const Text: string);
+begin
+  // Pattern is [a-z][a-z][a-z][0-9][0-9], so we expect exactly 5 characters
+  Assert.AreEqual(5, Text.Length, Format('Text from pattern should have 5 characters, got %d', [Text.Length]));
+
+  // Verify first 3 chars are lowercase letters
+  for var I := 1 to 3 do
+    Assert.IsTrue((Text[I] >= 'a') and (Text[I] <= 'z'),
+                  Format('Character at position %d should be lowercase letter, got %s', [I, Text[I]]));
+
+  // Verify last 2 chars are digits
+  for var I := 4 to 5 do
+    Assert.IsTrue((Text[I] >= '0') and (Text[I] <= '9'),
+                  Format('Character at position %d should be digit, got %s', [I, Text[I]]));
 end;
 
 end.

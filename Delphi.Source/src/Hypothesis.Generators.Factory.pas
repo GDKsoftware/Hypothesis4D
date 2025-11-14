@@ -11,7 +11,8 @@ uses
   Hypothesis.Generators.Strings,
   Hypothesis.Generators.Booleans,
   Hypothesis.Generators.Floats,
-  Hypothesis.Generators.DateTimes;
+  Hypothesis.Generators.DateTimes,
+  Hypothesis.Generators.Collections;
 
 type
   TGeneratorFactory = class
@@ -68,6 +69,33 @@ begin
     Exit(TStringGenerator.Create(StrNumeric.MinLen, StrNumeric.MaxLen, TStringCharSet.Numeric));
   end;
 
+  if Attribute is StringAsciiAttribute then
+  begin
+    const StrAscii = StringAsciiAttribute(Attribute);
+    Exit(TStringGenerator.Create(StrAscii.MinLen, StrAscii.MaxLen, TStringCharSet.Ascii));
+  end;
+
+  if Attribute is StringUnicodeAttribute then
+  begin
+    const StrUnicode = StringUnicodeAttribute(Attribute);
+    Exit(TStringGenerator.Create(StrUnicode.MinLen, StrUnicode.MaxLen, TStringCharSet.Unicode));
+  end;
+
+  if Attribute is StringEmailAttribute then
+    Exit(TStringGenerator.Create(0, 0, TStringCharSet.Email));
+
+  if Attribute is StringUrlAttribute then
+  begin
+    const StrUrl = StringUrlAttribute(Attribute);
+    Exit(TStringGenerator.Create(StrUrl.IncludeProtocol));
+  end;
+
+  if Attribute is StringRegexAttribute then
+  begin
+    const StrRegex = StringRegexAttribute(Attribute);
+    Exit(TStringGenerator.Create(StrRegex.Pattern));
+  end;
+
   if Attribute is BooleanAttribute then
     Exit(TBooleanGenerator.Create);
 
@@ -118,6 +146,18 @@ begin
 
   if Attribute is TimeRangeAttribute then
     Exit(TTimeGenerator.Create);
+
+  // Collection strategies require nested generators and are not yet fully supported
+  // through the attribute-based factory approach. For now, these would need to be
+  // created manually with explicit generator instances.
+  if Attribute is ArrayGenAttribute then
+    raise Exception.Create('ArrayGenAttribute requires manual generator creation with nested element generators');
+
+  if Attribute is ListGenAttribute then
+    raise Exception.Create('ListGenAttribute requires manual generator creation with nested element generators');
+
+  if Attribute is DictionaryGenAttribute then
+    raise Exception.Create('DictionaryGenAttribute requires manual generator creation with nested key/value generators');
 
   raise Exception.CreateFmt('Unsupported attribute type: %s', [Attribute.ClassName]);
 end;

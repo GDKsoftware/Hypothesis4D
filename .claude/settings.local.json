@@ -11,7 +11,12 @@
       "Bash(git branch:*)",
       "Bash(git push:*)",
       "Bash(test:*)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(.Delphi.SourcetestsWin32DebugHypothesis4D.UnitTests.exe)",
+      "Bash(\"Delphi.Source\\tests\\Win32\\Debug\\Hypothesis4D.UnitTests.exe\")",
+      "Bash(\"Delphi.Source\\tests\\Win32\\Debug\\Hypothesis4D.UnitTests.exe\" --consolemode:Quiet)",
+      "Bash(\"..\\..\\.delphi-build\\build-script.ps1\")",
+      "Bash(powershell -ExecutionPolicy Bypass -File \"..\\..\\.delphi-build\\build-script.ps1\")"
     ],
     "deny": [],
     "ask": []

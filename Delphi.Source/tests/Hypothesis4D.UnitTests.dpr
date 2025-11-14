@@ -13,7 +13,7 @@ uses
   DUnitX.Loggers.Xml.NUnit,
   {$ENDIF }
   DUnitX.TestFramework,
-  Hypothesis.Core.Tests in 'Hypothesis.Core.Tests.pas',
+  Hypothesis.Core.Tests in '..\src\Hypothesis.Core.Tests.pas',
   Hypothesis.Generators.Factory in '..\src\Hypothesis.Generators.Factory.pas',
   Hypothesis.Core in '..\src\Hypothesis.Core.pas',
   Hypothesis.Attributes in '..\src\Hypothesis.Attributes.pas',
@@ -24,12 +24,14 @@ uses
   Hypothesis.Generators.Interfaces in '..\src\Hypothesis.Generators.Interfaces.pas',
   Hypothesis.Examples.Tests in '..\examples\Hypothesis.Examples.Tests.pas',
   Hypothesis.Examples in '..\examples\Hypothesis.Examples.pas',
-  Hypothesis.Generators.Booleans.Tests in 'Hypothesis.Generators.Booleans.Tests.pas',
+  Hypothesis.Generators.Booleans.Tests in '..\src\Hypothesis.Generators.Booleans.Tests.pas',
   Hypothesis.Generators.Booleans in '..\src\Hypothesis.Generators.Booleans.pas',
   Hypothesis.Generators.DateTimes in '..\src\Hypothesis.Generators.DateTimes.pas',
   Hypothesis.Generators.Floats in '..\src\Hypothesis.Generators.Floats.pas',
-  Hypothesis.Generators.DateTimes.Tests in 'Hypothesis.Generators.DateTimes.Tests.pas',
-  Hypothesis.Generators.Floats.Tests in 'Hypothesis.Generators.Floats.Tests.pas';
+  Hypothesis.Generators.DateTimes.Tests in '..\src\Hypothesis.Generators.DateTimes.Tests.pas',
+  Hypothesis.Generators.Floats.Tests in '..\src\Hypothesis.Generators.Floats.Tests.pas',
+  Hypothesis.Generators.Collections in '..\src\Hypothesis.Generators.Collections.pas',
+  Hypothesis.Generators.Strings.Tests in '..\src\Hypothesis.Generators.Strings.Tests.pas';
 
 { keep comment here to protect the following conditional from being removed by the IDE when adding a unit }
 {$IFNDEF TESTINSIGHT}
