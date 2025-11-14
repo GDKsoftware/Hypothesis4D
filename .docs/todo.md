@@ -35,7 +35,9 @@ All planning, implementation, testing, and documentation are complete. The proje
 - ✅ `Hypothesis.Generators.Booleans.Tests.pas` - Boolean generator unit tests
 - ✅ `Hypothesis.Generators.Floats.Tests.pas` - Float generator unit tests
 - ✅ `Hypothesis.Generators.DateTimes.Tests.pas` - DateTime generator unit tests
-- ✅ Test project with DUnitX integration
+- ✅ `Hypothesis.Generators.Strings.Tests.pas` - String generator unit tests
+- ✅ `Hypothesis.Generators.Collections.Tests.pas` - Collection generator and helper tests
+- ✅ Test project with DUnitX integration (94 passing tests)
 
 **Documentation**:
 - ✅ `README.md` - Complete user documentation in root folder
@@ -51,6 +53,8 @@ All planning, implementation, testing, and documentation are complete. The proje
 - ✅ Float/Double strategies: FloatRange, FloatPositive, FloatNegative, FloatUnit (with NaN/Infinity support)
 - ✅ Date/DateTime strategies: DateRange, DateTimeRange, DateRecent, TimeRange
 - ✅ Collection infrastructure: ArrayGen, ListGen, DictionaryGen (attributes and generators created, require manual instantiation)
+- ✅ Collection helper methods: 15 convenience methods in THypothesis class (ArrayOfIntegers, ArrayOfStrings, ArrayOfFloats, ArrayOfBooleans, ArrayOf, ListOfIntegers, ListOfStrings, ListOfFloats, ListOfBooleans, ListOf, DictIntegerToString, DictStringToInteger, DictStringToString, DictOf)
+- ✅ Generator-based Run overload: Alternative to attribute-based generation accepting array of IValueGenerator
 - ✅ Automatic value generation with configurable iterations
 - ✅ Smart shrinking (integers: binary search, strings: length reduction, floats: towards zero/integers, dates: towards 2000-01-01, times: towards midnight)
 - ✅ RTTI-based parameter inspection
@@ -206,9 +210,9 @@ The MVP is complete. The following features are out of scope for MVP but could b
 - ✅ ASCII-only strings (StringAscii)
 - ✅ String patterns (StringEmail, StringUrl)
 - ✅ Regex-based string generation (StringRegex - basic implementation)
-- ⚠️ Collections (TArray<T>, TList<T>, TDictionary<K,V>) - Infrastructure created, requires manual instantiation due to nested generator complexity
+- ✅ Collections (TArray<T>, IList<T>, IDictionary<K,V>) - Implemented with 15 helper methods and generator-based Run overload
 - [ ] Record and object strategies
-- [ ] Full collection attribute support with nested strategies
+- [ ] Full collection attribute support with nested strategies (blocked by Delphi language limitations)
 
 **Advanced Shrinking**:
 - [ ] Smarter shrinking algorithms

@@ -239,6 +239,126 @@ Generates time values (TTime) representing time of day (00:00:00 to 23:59:59).
 procedure TestTime([TimeRange] const Time: TTime);
 ```
 
+### Collection Strategies
+
+Collection generators (arrays, lists, dictionaries) require manual instantiation due to Delphi's compile-time constant requirements in attributes. Hypothesis provides convenient helper methods to simplify collection generation.
+
+#### Using Collection Helpers
+
+Instead of using attributes, use the helper methods with the generator-based `Run` overload:
+
+```delphi
+type
+  [TestFixture]
+  TCollectionTests = class
+  public
+    [Test]
+    procedure RunTestArraySum;
+    procedure TestArraySum(const Values: TArray<Int64>);
+  end;
+
+implementation
+
+procedure TCollectionTests.RunTestArraySum;
+begin
+  THypothesis.Run(Self, 'TestArraySum', [
+    THypothesis.ArrayOfIntegers(5, 10, 1, 100)
+  ], 50);
+end;
+
+procedure TCollectionTests.TestArraySum(const Values: TArray<Int64>);
+var
+  Sum: Int64;
+  I: Integer;
+begin
+  Sum := 0;
+  for I := 0 to High(Values) do
+    Sum := Sum + Values[I];
+
+  Assert.IsTrue(Sum > 0, 'Sum of positive integers should be positive');
+  Assert.IsTrue(Length(Values) >= 5);
+  Assert.IsTrue(Length(Values) <= 10);
+end;
+```
+
+#### Array Helper Methods
+
+- `ArrayOfIntegers(MinCount, MaxCount, MinValue, MaxValue, ExcludeZero)` - Arrays of Int64
+- `ArrayOfStrings(MinCount, MaxCount, MinLen, MaxLen, CharSet)` - Arrays of strings
+- `ArrayOfFloats(MinCount, MaxCount, MinValue, MaxValue, AllowNaN, AllowInfinity)` - Arrays of Double
+- `ArrayOfBooleans(MinCount, MaxCount)` - Arrays of Boolean
+- `ArrayOf(MinCount, MaxCount, ElementGenerator, ElementTypeInfo)` - Generic array generator
+
+```delphi
+// Generate array of 3-7 strings, each 5-15 characters long
+THypothesis.ArrayOfStrings(3, 7, 5, 15, TStringCharSet.Alpha)
+
+// Generate array of 10-20 floats between -1.0 and 1.0
+THypothesis.ArrayOfFloats(10, 20, -1.0, 1.0)
+```
+
+#### List Helper Methods
+
+Lists use Spring4D's `IList<T>` interface:
+
+- `ListOfIntegers(MinCount, MaxCount, MinValue, MaxValue, ExcludeZero)` - Lists of Int64
+- `ListOfStrings(MinCount, MaxCount, MinLen, MaxLen, CharSet)` - Lists of strings
+- `ListOfFloats(MinCount, MaxCount, MinValue, MaxValue, AllowNaN, AllowInfinity)` - Lists of Double
+- `ListOfBooleans(MinCount, MaxCount)` - Lists of Boolean
+- `ListOf(MinCount, MaxCount, ElementGenerator, ElementTypeInfo)` - Generic list generator
+
+```delphi
+procedure TTests.RunTestListContains;
+begin
+  THypothesis.Run(Self, 'TestListContains', [
+    THypothesis.ListOfIntegers(5, 10, 1, 100)
+  ], 50);
+end;
+
+procedure TTests.TestListContains(const Values: IList<Int64>);
+begin
+  if Values.Count > 0 then
+    Assert.IsTrue(Values.Contains(Values[0]));
+end;
+```
+
+#### Dictionary Helper Methods
+
+Dictionaries use Spring4D's `IDictionary<K,V>` interface:
+
+- `DictIntegerToString(MinCount, MaxCount, KeyMin, KeyMax, ValueMinLen, ValueMaxLen, ValueCharSet)` - Int64 → string
+- `DictStringToInteger(MinCount, MaxCount, KeyMinLen, KeyMaxLen, KeyCharSet, ValueMin, ValueMax)` - string → Int64
+- `DictStringToString(MinCount, MaxCount, KeyMinLen, KeyMaxLen, KeyCharSet, ValueMinLen, ValueMaxLen, ValueCharSet)` - string → string
+- `DictOf(MinCount, MaxCount, KeyGenerator, ValueGenerator, KeyTypeInfo, ValueTypeInfo)` - Generic dictionary generator
+
+```delphi
+// Generate dictionary with 3-8 entries, Int64 keys (1-100), string values (5-15 chars)
+THypothesis.DictIntegerToString(3, 8, 1, 100, 5, 15, TStringCharSet.Alpha)
+```
+
+#### Multiple Collection Parameters
+
+You can pass multiple generators to test interactions between collections:
+
+```delphi
+procedure TTests.RunTestArrayConcatenation;
+begin
+  THypothesis.Run(Self, 'TestArrayConcatenation', [
+    THypothesis.ArrayOfIntegers(3, 5, 1, 100),
+    THypothesis.ArrayOfIntegers(3, 5, 1, 100)
+  ], 50);
+end;
+
+procedure TTests.TestArrayConcatenation(const A1, A2: TArray<Int64>);
+var
+  Combined: TArray<Int64>;
+begin
+  SetLength(Combined, Length(A1) + Length(A2));
+  // ... concatenation logic ...
+  Assert.AreEqual(Length(A1) + Length(A2), Length(Combined));
+end;
+```
+
 ## Configuring Iterations
 
 Use the `ForAll` attribute to specify the number of test iterations (default: 10).
@@ -250,7 +370,9 @@ procedure TestWithManyIterations([IntRange(1, 100)] const Value: Integer);
 
 ## Multiple Parameters
 
-Property tests can accept multiple parameters with different strategies:
+Property tests can accept multiple parameters with different strategies.
+
+### Using Attribute-Based Generation
 
 ```delphi
 [ForAll(100)]
@@ -261,6 +383,28 @@ begin
   Assert.AreEqual(Sum, Int64(B) + Int64(A), 'Addition should be commutative');
 end;
 ```
+
+### Using Generator-Based Execution
+
+For more complex scenarios or when using collections, you can pass generators directly:
+
+```delphi
+[Test]
+procedure RunTestComplexScenario;
+
+procedure TestComplexScenario(const Values: TArray<Int64>; const Name: string);
+
+// Implementation
+procedure TTests.RunTestComplexScenario;
+begin
+  THypothesis.Run(Self, 'TestComplexScenario', [
+    THypothesis.ArrayOfIntegers(5, 10, 1, 100),
+    THypothesis.StringAlpha(3, 20)  // Note: StringAlpha not yet implemented as helper
+  ], 50);
+end;
+```
+
+**Note**: Currently, only collection helpers are available. String and other type helpers are planned for future versions.
 
 ## How Shrinking Works
 
@@ -327,17 +471,32 @@ The library consists of the following main components:
 4. **Hypothesis.Runner**: DUnitX framework integration helper (`THypothesis.Run`)
 5. **Hypothesis.Exceptions**: Custom exception types for property test failures
 
-## Limitations (MVP)
+## Limitations
 
-This is a minimal viable product with the following limitations:
+Current implementation includes:
 
-- Only Integer (Int64) and String types supported
-- Basic shrinking strategies only
-- No database/persistence for test cases
-- No stateful testing
-- No custom strategy composition
+**✅ Supported Types**:
+- Integers (Int64)
+- Strings (with multiple character sets)
+- Booleans
+- Floats/Doubles (with special values)
+- Dates, DateTimes, and Times
+- Collections (TArray, IList, IDictionary via helper methods)
 
-Future versions may add support for additional types (floats, dates, collections), advanced shrinking, and stateful property testing.
+**⚠️ Collection Limitations**:
+- Collections require manual instantiation using helper methods
+- Cannot use attribute-based generation for collections (Delphi language limitation)
+- Collection types are limited to: Int64, string, Double, Boolean
+
+**📋 Not Yet Implemented**:
+- Records and custom object types
+- Advanced shrinking strategies
+- Database/persistence for test cases
+- Stateful testing
+- Custom strategy composition
+- Full generic collection support
+
+Future versions may add support for records, advanced shrinking, and more flexible collection generators.
 
 ## Troubleshooting
 

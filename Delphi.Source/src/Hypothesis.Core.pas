@@ -7,7 +7,8 @@ uses
   System.Rtti,
   System.TypInfo,
   System.Math,
-  Spring.Collections;
+  Spring.Collections,
+  Hypothesis.Generators.Interfaces;
 
 type
   TParameterInfo = record
@@ -32,6 +33,9 @@ type
     destructor Destroy; override;
 
     procedure RunPropertyTest(const Method: TRttiMethod; const Instance: TObject);
+    procedure RunWithGenerators(const Method: TRttiMethod; const Instance: TObject;
+                               const Generators: array of IValueGenerator;
+                               const Iterations: Integer);
 
     property Seed: Integer read FSeed write FSeed;
   end;
@@ -41,7 +45,6 @@ implementation
 uses
   Hypothesis.Attributes,
   Hypothesis.Exceptions,
-  Hypothesis.Generators.Interfaces,
   Hypothesis.Generators.Factory;
 
 constructor TPropertyTestRunner.Create;
@@ -266,6 +269,76 @@ begin
                          FormatValueList(ParamValues),
                          FormatValueList(MinimalValues),
                          FSeed]);
+
+      raise TPropertyTestFailure.Create(ErrorMsg, ParamValues, MinimalValues, Iteration, FSeed);
+    end;
+  end;
+end;
+
+procedure TPropertyTestRunner.RunWithGenerators(const Method: TRttiMethod;
+                                               const Instance: TObject;
+                                               const Generators: array of IValueGenerator;
+                                               const Iterations: Integer);
+var
+  Iteration: Integer;
+  ParamValues: IList<TValue>;
+  MinimalValues: IList<TValue>;
+  Params: IList<TParameterInfo>;
+  I: Integer;
+  RttiParams: TArray<TRttiParameter>;
+  ErrorMsg: string;
+  OriginalValues: IList<TValue>;
+begin
+  RttiParams := Method.GetParameters;
+
+  // Validate generator count matches parameter count
+  if Length(Generators) <> Length(RttiParams) then
+    raise Exception.CreateFmt('Generator count (%d) does not match parameter count (%d)',
+                             [Length(Generators), Length(RttiParams)]);
+
+  // Create parameter info list with provided generators
+  Params := TCollections.CreateList<TParameterInfo>;
+  for I := 0 to High(Generators) do
+  begin
+    var ParamInfo: TParameterInfo;
+    ParamInfo.ParamName := RttiParams[I].Name;
+    ParamInfo.ParamType := RttiParams[I].ParamType;
+    ParamInfo.Generator := Generators[I];
+    Params.Add(ParamInfo);
+  end;
+
+  // Execute test iterations
+  for Iteration := 1 to Iterations do
+  begin
+    ParamValues := TCollections.CreateList<TValue>;
+
+    // Generate values using provided generators
+    for I := 0 to Params.Count - 1 do
+    begin
+      const Gen = Params[I].Generator as IValueGenerator;
+      const GeneratedValue = Gen.GenerateValue;
+      ParamValues.Add(GeneratedValue);
+    end;
+
+    // Execute the test
+    if not ExecuteTest(Method, Instance, ParamValues) then
+    begin
+      OriginalValues := TCollections.CreateList<TValue>;
+      for I := 0 to ParamValues.Count - 1 do
+        OriginalValues.Add(ParamValues[I]);
+
+      // Shrink to find minimal failing example
+      MinimalValues := ShrinkFailure(Method, Instance, OriginalValues, Params);
+
+      // Format error message
+      ErrorMsg := Format('Property test failed on iteration %d/%d' + sLineBreak +
+                         'Original values: %s' + sLineBreak +
+                         'Minimal failing example: %s' + sLineBreak +
+                         'Seed: %d',
+                         [Iteration, Iterations,
+                          FormatValueList(OriginalValues),
+                          FormatValueList(MinimalValues),
+                          FSeed]);
 
       raise TPropertyTestFailure.Create(ErrorMsg, ParamValues, MinimalValues, Iteration, FSeed);
     end;

@@ -31,7 +31,8 @@ uses
   Hypothesis.Generators.DateTimes.Tests in '..\src\Hypothesis.Generators.DateTimes.Tests.pas',
   Hypothesis.Generators.Floats.Tests in '..\src\Hypothesis.Generators.Floats.Tests.pas',
   Hypothesis.Generators.Collections in '..\src\Hypothesis.Generators.Collections.pas',
-  Hypothesis.Generators.Strings.Tests in '..\src\Hypothesis.Generators.Strings.Tests.pas';
+  Hypothesis.Generators.Strings.Tests in '..\src\Hypothesis.Generators.Strings.Tests.pas',
+  Hypothesis.Generators.Collections.Tests in '..\src\Hypothesis.Generators.Collections.Tests.pas';
 
 { keep comment here to protect the following conditional from being removed by the IDE when adding a unit }
 {$IFNDEF TESTINSIGHT}

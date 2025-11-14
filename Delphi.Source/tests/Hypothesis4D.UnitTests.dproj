@@ -108,6 +108,7 @@
         <DCCReference Include="..\src\Hypothesis.Generators.Floats.Tests.pas"/>
         <DCCReference Include="..\src\Hypothesis.Generators.Collections.pas"/>
         <DCCReference Include="..\src\Hypothesis.Generators.Strings.Tests.pas"/>
+        <DCCReference Include="..\src\Hypothesis.Generators.Collections.Tests.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
