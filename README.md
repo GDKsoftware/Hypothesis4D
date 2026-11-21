@@ -515,7 +515,7 @@ This is an experimental library. Feedback and contributions are welcome.
 
 ## License
 
-[Specify your license here]
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
 ## Acknowledgments
 
