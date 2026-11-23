@@ -68,3 +68,6 @@ Python.Source/.hypothesis/
 .DS_Store
 Thumbs.db
 Desktop.ini
+
+# Local tool settings
+.claude/
